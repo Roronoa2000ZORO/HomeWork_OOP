@@ -1,4 +1,4 @@
-#include "distance_hw.hpp"
+ï»¿#include "distance_hw.hpp"
 
 int main() {
     setlocale(LC_ALL, "RU");
@@ -6,9 +6,9 @@ int main() {
     Point A(2, 3);
     Point B(4, 6);
 
-    cout << "Êîîðäèíàòû Òî÷êè A: ";
+    cout << "ÐšÐ¾Ð¾Ñ€Ð´Ð¸Ð½Ð°Ñ‚Ñ‹ Ð¢Ð¾Ñ‡ÐºÐ¸ A: ";
     A.Print();
-    cout << "\nÊîîðäèíàòû Òî÷êè B: ";
+    cout << "\nÐšÐ¾Ð¾Ñ€Ð´Ð¸Ð½Ð°Ñ‚Ñ‹ Ð¢Ð¾Ñ‡ÐºÐ¸ B: ";
     B.Print();
 
     cout << "\n-------------------------------------------\n";

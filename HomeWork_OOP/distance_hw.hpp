@@ -1,4 +1,4 @@
-#ifndef DISTANCE_HW_HPP
+п»ї#ifndef DISTANCE_HW_HPP
 #define DISTANCE_HW_HPP
 
 #include <iostream>
@@ -7,7 +7,7 @@ using namespace std;
 
 class Point {
 public:
-	/*Модификаторы доступа*/
+	/*РњРѕРґРёС„РёРєР°С‚РѕСЂС‹ РґРѕСЃС‚СѓРїР°*/
 
 	double get_y() const;
 	double get_x() const;
@@ -15,14 +15,14 @@ public:
 	void set_x(double x);
 	/*____________________*/
 
-	//Конструктор Широты и Долготы объекта
+	//РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РЁРёСЂРѕС‚С‹ Рё Р”РѕР»РіРѕС‚С‹ РѕР±СЉРµРєС‚Р°
 	Point(double y, double x);
-	//Деструктор
+	//Р”РµСЃС‚СЂСѓРєС‚РѕСЂ
 	~Point();
 
-	//Метод вычисление дистанции между двух точек
+	//РњРµС‚РѕРґ РІС‹С‡РёСЃР»РµРЅРёРµ РґРёСЃС‚Р°РЅС†РёРё РјРµР¶РґСѓ РґРІСѓС… С‚РѕС‡РµРє
 	double distance(const Point& specified) const;
-	//Печать значений координат
+	//РџРµС‡Р°С‚СЊ Р·РЅР°С‡РµРЅРёР№ РєРѕРѕСЂРґРёРЅР°С‚
 	void Print() const;
 	
 private:
@@ -31,7 +31,7 @@ private:
 };
 
 
-//Функция вычисления дистанции между двух точек
+//Р¤СѓРЅРєС†РёСЏ РІС‹С‡РёСЃР»РµРЅРёСЏ РґРёСЃС‚Р°РЅС†РёРё РјРµР¶РґСѓ РґРІСѓС… С‚РѕС‡РµРє
 double Distance(const Point A, const Point B);
 
 void PrintDistance(const Point A, const Point B);

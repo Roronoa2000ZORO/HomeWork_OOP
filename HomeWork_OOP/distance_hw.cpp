@@ -1,4 +1,4 @@
-#include "distance_hw.hpp"
+ï»¿#include "distance_hw.hpp"
 
 //class Point:
 
@@ -44,10 +44,10 @@ double Distance(const Point A, const Point B){
 }
 
 void PrintDistance(const Point A, const Point B){
-    cout << "Ìåòîä distance" << endl;
-    cout << "Ðàññòîÿíèå îò òî÷êè A äî òî÷êè B: " << A.distance(B) << endl;
-    cout << "Ðàññòîÿíèå îò òî÷êè B äî òî÷êè A: " << B.distance(A) << endl;
-    cout << "\nÔóíêöèÿ Distance" << endl;
-    cout << "Ðàññòîÿíèå ìåæäó òî÷êàìè A è B: " << Distance(A, B) << endl;
-    cout << "Ðàññòîÿíèå ìåæäó òî÷êàìè B è A: " << Distance(B, A) << endl;
+    cout << "ÐœÐµÑ‚Ð¾Ð´ distance" << endl;
+    cout << "Ð Ð°ÑÑÑ‚Ð¾ÑÐ½Ð¸Ðµ Ð¾Ñ‚ Ñ‚Ð¾Ñ‡ÐºÐ¸ A Ð´Ð¾ Ñ‚Ð¾Ñ‡ÐºÐ¸ B: " << A.distance(B) << endl;
+    cout << "Ð Ð°ÑÑÑ‚Ð¾ÑÐ½Ð¸Ðµ Ð¾Ñ‚ Ñ‚Ð¾Ñ‡ÐºÐ¸ B Ð´Ð¾ Ñ‚Ð¾Ñ‡ÐºÐ¸ A: " << B.distance(A) << endl;
+    cout << "\nÐ¤ÑƒÐ½ÐºÑ†Ð¸Ñ Distance" << endl;
+    cout << "Ð Ð°ÑÑÑ‚Ð¾ÑÐ½Ð¸Ðµ Ð¼ÐµÐ¶Ð´Ñƒ Ñ‚Ð¾Ñ‡ÐºÐ°Ð¼Ð¸ A Ð¸ B: " << Distance(A, B) << endl;
+    cout << "Ð Ð°ÑÑÑ‚Ð¾ÑÐ½Ð¸Ðµ Ð¼ÐµÐ¶Ð´Ñƒ Ñ‚Ð¾Ñ‡ÐºÐ°Ð¼Ð¸ B Ð¸ A: " << Distance(B, A) << endl;
 }
