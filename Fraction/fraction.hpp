@@ -1,4 +1,4 @@
-#ifndef FRACTION_HPP
+п»ї#ifndef FRACTION_HPP
 #define FRACTION_HPP
 
 #include <iostream>
@@ -7,7 +7,7 @@ using namespace std;
 
 class Fraction {
 public:
-            /*Модификаторы доступа*/
+            /*РњРѕРґРёС„РёРєР°С‚РѕСЂС‹ РґРѕСЃС‚СѓРїР°*/
 
     int get_numerator() const;
     int get_denominator() const;
@@ -16,21 +16,21 @@ public:
     void set_denominator(int denominator);
     void set_wholePart(int wholePart);
 
-    //Конструктор
+    //РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ
     Fraction(int wholePart = int(), int numerator = int(), int denominator = int());
-    //Конструктор копирования
+    //РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РєРѕРїРёСЂРѕРІР°РЅРёСЏ
     Fraction(const Fraction& other);
-    //Деструктор
+    //Р”РµСЃС‚СЂСѓРєС‚РѕСЂ
     ~Fraction();
 
-            /*Методы*/
-    //Вывод дроби на экран 
+            /*РњРµС‚РѕРґС‹*/
+    //Р’С‹РІРѕРґ РґСЂРѕР±Рё РЅР° СЌРєСЂР°РЅ 
     void PrintFraction() const;
 
     
 
-            /*Перегрузка операторов*/
-    //Оператор присваивания
+            /*РџРµСЂРµРіСЂСѓР·РєР° РѕРїРµСЂР°С‚РѕСЂРѕРІ*/
+    //РћРїРµСЂР°С‚РѕСЂ РїСЂРёСЃРІР°РёРІР°РЅРёСЏ
     Fraction& operator=(const Fraction& other);
     
     
@@ -40,18 +40,18 @@ private:
     int denominator;
     int wholePart;
 };
-//Наибольший общий делитель(алгоритм Евклида)
+//РќР°РёР±РѕР»СЊС€РёР№ РѕР±С‰РёР№ РґРµР»РёС‚РµР»СЊ(Р°Р»РіРѕСЂРёС‚Рј Р•РІРєР»РёРґР°)
 int GCD(int first, int second);
-//Наименьшее общее кратное
+//РќР°РёРјРµРЅСЊС€РµРµ РѕР±С‰РµРµ РєСЂР°С‚РЅРѕРµ
 int LCM(int first, int second);
 
-//Оператор сложения
+//РћРїРµСЂР°С‚РѕСЂ СЃР»РѕР¶РµРЅРёСЏ
 Fraction operator+(const Fraction& left, const Fraction& right);
-//Оператор вычитания
+//РћРїРµСЂР°С‚РѕСЂ РІС‹С‡РёС‚Р°РЅРёСЏ
 Fraction operator-(const Fraction& left, const Fraction& right);
-//Оператор умножения
+//РћРїРµСЂР°С‚РѕСЂ СѓРјРЅРѕР¶РµРЅРёСЏ
 Fraction operator*(const Fraction& left, const Fraction& right);
-//Оператор деления
+//РћРїРµСЂР°С‚РѕСЂ РґРµР»РµРЅРёСЏ
 Fraction operator/(const Fraction& left, const Fraction& right);
 
 bool CorrectFraction(const Fraction& A);
