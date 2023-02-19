@@ -18,12 +18,12 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="distance_hw.cpp">
+    <ClCompile Include="fraction.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="distance_hw.hpp">
+    <ClInclude Include="fraction.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
