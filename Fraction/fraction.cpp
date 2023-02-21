@@ -1,65 +1,184 @@
 ﻿#include"fraction.hpp"
 
+/*----------------------------------start-class-------------------------------------------------------*/
+
+                        /*Модификаторы доступа*/
+
 int Fraction::get_numerator() const {
+
     return numerator;
 }
 
 int Fraction::get_denominator() const {
+
     return denominator;
 }
 
 int Fraction::get_wholePart() const {
+
     return wholePart;
 }
 
 void Fraction::set_numerator(int numerator) {
+
     this->numerator = numerator;
 }
 
 void Fraction::set_denominator(int denominator){
+
+    if (denominator == 0){
+        denominator = 1; 
+    }
     this->denominator = denominator;
 }
 
 void Fraction::set_wholePart(int wholePart){
+
     this->wholePart = wholePart;
 }
 
-Fraction::Fraction(int wholePart, int numerator, int denominator){
+                        /*Конструкторы и Деструктор*/
+
+//Конструктор по умолчанию
+Fraction::Fraction() {
+
+    wholePart = int();
+    numerator = int();
+    denominator = 1;
+}
+//Конструктор №1
+Fraction::Fraction(int wholePart){
+
+    this->wholePart = wholePart;
+    numerator = int();
+    denominator = 1;
+}
+//Конструктор №2
+Fraction::Fraction(int numerator, int denominator){
+
+    wholePart = int();
     this->numerator = numerator;
-    this->denominator = denominator;
-    this->wholePart = wholePart;
+    set_denominator(denominator);
 }
+//Конструктор №3
+Fraction::Fraction(int wholePart, int numerator, int denominator){
 
+    this->wholePart = wholePart;
+    this->numerator = numerator;
+    set_denominator(denominator);
+}
+//Конструктор копирования
 Fraction::Fraction(const Fraction& other) {
+
     this->numerator = other.numerator;
     this->denominator = other.denominator;
     this->wholePart = other.wholePart;
 }
-
+//Деструктор
 Fraction::~Fraction() {}
 
+
+                        /*Методы*/
+
+//Вывод дроби на экран
 void Fraction::PrintFraction() const{
-    if (this->wholePart > 0) {
-        cout << this->wholePart << " ";
-    }
 
-    if (this->numerator && this->denominator > 0) {
-        cout << this->numerator << "/" << this->denominator;
+    if (wholePart) {
+        cout << wholePart;
     }
+    if (numerator) {
+        if (wholePart) {
+            cout << "(";
+        }
+
+        cout << numerator << "/" << denominator;
+
+        if (wholePart) {
+            cout << ")";
+        }
+    }else if (wholePart == 0) {
+        cout << wholePart;
+    }
+    cout << "\t";
 }
+//Переобразование в неправильную дробь
+Fraction& Fraction::to_improper(){
 
-Fraction& Fraction::operator=(const Fraction& other) {
+    numerator += wholePart * denominator;
+    wholePart = int();
+    return *this;
+}
+//Переобразование в правильную дробь
+Fraction& Fraction::to_proper(){
 
-    this->numerator = other.numerator;
-    this->denominator = other.denominator;
-    this->wholePart = other.wholePart;
+    wholePart += numerator / denominator;
+    numerator %= denominator;
+    return *this;
+}
+//Меняем числитель и знаменатель местами
+Fraction& Fraction::inverted() const{
+
+    Fraction inverted = *this;	//копируем объект!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    inverted.to_improper();
+    swap(inverted.numerator, inverted.denominator);
+    return inverted;
+}
+//Получение общего знаменателя
+Fraction& Fraction::getCommonDenominator( const int additionalMultiplier) {
+    
+    numerator *= additionalMultiplier;
+    denominator *= additionalMultiplier;
+    return *this;
+}
+//Сокращение дроби
+Fraction& Fraction::reduce(){
+    if (numerator == 0) {
+        return *this;
+    }
+    int tmp = GCD(numerator, denominator);
+    numerator /= tmp;
+    denominator /= tmp;
     return *this;
 }
 
 
+                        /*Операторы*/
+
+//Оператор присваивания
+Fraction& Fraction::operator=(const Fraction& other) {
+
+    numerator = other.numerator;
+    denominator = other.denominator;
+    wholePart = other.wholePart;
+    return *this;
+}
+//Оператор Сложение, совмещённое с присваиванием
+Fraction& Fraction::operator+=(const Fraction& other){
+    
+    return *this = *this + other;
+}
+//Оператор Вычитание, совмещённое с присваиванием
+Fraction& Fraction::operator-=(const Fraction& other){
+
+    return *this = *this - other;
+}
+//Оператор Умножение, совмещённое с присваиванием
+Fraction& Fraction::operator*=(const Fraction& other){
+
+    return *this = *this * other;
+}
+//Оператор Деление, совмещённое с присваиванием
+Fraction& Fraction::operator/=(const Fraction& other){
+
+    return *this = *this / other;
+}
+
+
+/*----------------------------------end-class-------------------------------------------------------*/
+
                         /*Функции*/
 
-
+//Наибольший общий делитель(алгоритм Евклида)
 int GCD(int first, int second){
 
     if (first < second) {
@@ -71,177 +190,153 @@ int GCD(int first, int second){
     }
     return second;
 }
-
+//Наименьшее общее кратное
 int LCM(int first, int second) {
-    int result;
-    result = first * second / GCD(first, second);
-    return result;
+    
+    return first * second / GCD(first, second);
 }
+//Оператор сложения
+Fraction operator+(Fraction left, Fraction right){
+    
+    left.to_improper();
+    right.to_improper();
 
-Fraction operator+(const Fraction& left, const Fraction& right){
-    Fraction result;
-    int tmp = int();
-    //Сложение целого числа с целым числом или дробью!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    /*if ((left.get_numerator() == 0 || left.get_denominator() == 0) || (right.get_numerator() == 0 || right.get_denominator() == 0)) {
-        result.set_numerator(left.get_numerator() + right.get_numerator());
-        result.set_denominator(left.get_denominator() + right.get_denominator());
-        result.set_wholePart(left.get_wholePart() + right.get_wholePart());
+    if (left.get_denominator() != right.get_denominator()) {
 
-    //Сложение дробей с одинаковыми знаменателями
-    } else*/ if(left.get_denominator() == right.get_denominator()) {
-
-        result.set_numerator(left.get_numerator() + right.get_numerator());
-        result.set_denominator(left.get_denominator());
-        result.set_wholePart(left.get_wholePart() + right.get_wholePart());// Сложение целых чисел
-
-    }else { //Сложение дробей с разными знаменателями
-        Fraction left_tmp, right_tmp;
-
-        //Манипуляции с левой дробью
-        tmp = LCM(right.get_denominator(), left.get_denominator()) / left.get_denominator();// Поиск НОК и получение дополнительного множителя
-        left_tmp.set_numerator(tmp * left.get_numerator());
-        left_tmp.set_denominator(tmp * left.get_denominator());
-        
-        //Манипуляции с правой дробью
-        tmp = LCM(right.get_denominator(), left.get_denominator()) / right.get_denominator();// Поиск НОК и получение дополнительного множителя
-        right_tmp.set_numerator(tmp * right.get_numerator());
-        right_tmp.set_denominator(tmp * right.get_denominator());
-
-        //Сложение дробей
-        result.set_numerator(left_tmp.get_numerator() + right_tmp.get_numerator());
-        result.set_denominator(left_tmp.get_denominator());
-        result.set_wholePart(left.get_wholePart() + right.get_wholePart());// Сложение целых чисел
+        left.getCommonDenominator(LCM(left.get_denominator(), right.get_denominator()) / left.get_denominator());
+        right.getCommonDenominator(LCM(left.get_denominator(), right.get_denominator()) / right.get_denominator());
     }
     
-    //Переоброзование неправельной дроби в правильную
-    if (result.get_numerator() >= result.get_denominator()) {
-        result.set_wholePart(result.get_wholePart() + result.get_numerator() / result.get_denominator());
-        result.set_numerator(result.get_numerator() % result.get_denominator());
-    }
-
-    //Сокращение дроби если это возможно
-    tmp = GCD(result.get_numerator(), result.get_denominator());
-    result.set_numerator(result.get_numerator() / tmp);
-    result.set_denominator(result.get_denominator() / tmp);
-    result.set_numerator(result.get_numerator() % result.get_denominator());
-    
-
-    return result;
+    return Fraction(
+        left.get_numerator() + right.get_numerator(),
+        left.get_denominator()
+    ).to_proper().reduce();
 }
+//Оператор вычитания
+Fraction operator-(Fraction left, Fraction right) {
 
-Fraction operator-(const Fraction& left, const Fraction& right) {
-    Fraction result;
-    int tmp = int();
-    //Вычитание дробей с одинаковыми знаменателями
-    if (left.get_denominator() == right.get_denominator()) {
-        result.set_numerator(left.get_numerator() - right.get_numerator());
-        result.set_denominator(left.get_denominator());
-        result.set_wholePart(left.get_wholePart() - right.get_wholePart());// Вычитание целых чисел
+    left.to_improper();
+    right.to_improper();
+
+    if (left.get_denominator() != right.get_denominator()) {
+
+        left.getCommonDenominator(LCM(left.get_denominator(), right.get_denominator()) / left.get_denominator());
+        right.getCommonDenominator(LCM(left.get_denominator(), right.get_denominator()) / right.get_denominator());
     }
-    else { //Вычитание дробей с разными знаменателями
-        Fraction left_tmp, right_tmp;
-
-        //Манипуляции с левой дробью
-        tmp = LCM(right.get_denominator(), left.get_denominator()) / left.get_denominator();// Поиск НОК и получение дополнительного множителя
-        left_tmp.set_numerator(tmp * left.get_numerator());
-        left_tmp.set_denominator(tmp * left.get_denominator());
-
-        //Манипуляции с правой дробью
-        tmp = LCM(right.get_denominator(), left.get_denominator()) / right.get_denominator();// Поиск НОК и получение дополнительного множителя
-        right_tmp.set_numerator(tmp * right.get_numerator());
-        right_tmp.set_denominator(tmp * right.get_denominator());
-
-        //Вычитание дробей
-        result.set_numerator(left_tmp.get_numerator() - right_tmp.get_numerator());
-        result.set_denominator(left_tmp.get_denominator());
-        result.set_wholePart(left.get_wholePart() - right.get_wholePart());// Сложение целых чисел
-    }
-
-    //Переоброзование неправельной дроби в правильную
-    if (result.get_numerator() >= result.get_denominator()) {
-        result.set_wholePart(result.get_wholePart() + result.get_numerator() / result.get_denominator());
-        result.set_numerator(result.get_numerator() % result.get_denominator());
-    }
-
-    //Сокращение дроби если это возможно
-    tmp = GCD(result.get_numerator(), result.get_denominator());
-    result.set_numerator(result.get_numerator() / tmp);
-    result.set_denominator(result.get_denominator() / tmp);
-    result.set_numerator(result.get_numerator() % result.get_denominator());
-
-    return result;
+    
+    return Fraction(
+            left.get_numerator() - right.get_numerator(),
+            left.get_denominator()
+    ).to_proper().reduce();
 }
+//Оператор умножения
+Fraction operator*(Fraction left, Fraction right) {
 
-Fraction operator*(const Fraction& left, const Fraction& right) {
-    Fraction result, left_tmp, right_tmp;
-    int tmp = int();
-    if (!CorrectFraction(left) && !CorrectFraction(right) && !CorrectWholePart(left) && !CorrectWholePart(right)) {
-        return result;
-    }
+    left.to_improper();
+    right.to_improper();
     
-    
-
-    // Переобразование целой части в дробное в случае когда один из операндов является только целой частью
-    if ((!CorrectFraction(left) || !CorrectFraction(right)) && !CorrectWholePart(left)) {
-        left_tmp.set_numerator(left.get_wholePart());
-        left_tmp.set_denominator(1);
-    }else if ((!CorrectFraction(left) || !CorrectFraction(right)) && !CorrectWholePart(right)) {
-        right_tmp.set_numerator(right.get_wholePart());
-        right_tmp.set_denominator(1);
-    }
-
-    if (CorrectFraction(left) && CorrectFraction(right)) {
-        left_tmp.set_numerator(left.get_wholePart() * left.get_denominator() + left.get_numerator());
-        right_tmp.set_numerator(right.get_wholePart() * right.get_denominator() + right.get_numerator());
-    }else {
-
-        left_tmp.set_numerator(left.get_wholePart() * left.get_denominator() + left.get_numerator());
-        right_tmp.set_numerator(right.get_wholePart() * right.get_denominator() + right.get_numerator());
-    }
-
-    result.set_numerator(left_tmp.get_numerator() * right_tmp.get_numerator());
-    result.set_denominator(left.get_denominator() * right.get_denominator());
-    
-    //Переоброзование неправельной дроби в правильную
-    if (result.get_numerator() >= result.get_denominator()) {
-        result.set_wholePart(result.get_wholePart() + result.get_numerator() / result.get_denominator());
-        result.set_numerator(result.get_numerator() % result.get_denominator());
-    }
-
-    //Сокращение дроби если это возможно
-    tmp = GCD(result.get_numerator(), result.get_denominator());
-    result.set_numerator(result.get_numerator() / tmp);
-    result.set_denominator(result.get_denominator() / tmp);
-    result.set_numerator(result.get_numerator() % result.get_denominator());
-    
-
-    return result;
+    return Fraction(
+        left.get_numerator() * right.get_numerator(),
+        left.get_denominator() * right.get_denominator()
+    ).to_proper().reduce();
 }
-
+//Оператор деления
 Fraction operator/(const Fraction& left, const Fraction& right) {
-    Fraction result;
-    int tmp = int();
-    //Деление дробей
-    result.set_numerator(left.get_numerator() * right.get_denominator());
-    result.set_denominator(left.get_denominator() * right.get_numerator());
-    //result.set_wholePart(left.get_wholePart() / right.get_wholePart());// Деление целых чисел!!!!!!!!!
-
-    //Переоброзование неправельной дроби в правильную
-    if (result.get_numerator() >= result.get_denominator()) {
-        result.set_wholePart(result.get_wholePart() + result.get_numerator() / result.get_denominator());
-        result.set_numerator(result.get_numerator() % result.get_denominator());
-    }
-
-    if (CorrectFraction(result)) {
-    //Сокращение дроби если это возможно
-        tmp = GCD(result.get_numerator(), result.get_denominator());
-        result.set_numerator(result.get_numerator() / tmp);
-        result.set_denominator(result.get_denominator() / tmp);
-        result.set_numerator(result.get_numerator() % result.get_denominator());
-    }
-
-    return result;
+    return left * right.inverted();
 }
+//Оператор равенство
+bool operator==(Fraction left, Fraction right){
+    left.to_improper();
+    right.to_improper();
+    left.reduce();
+    right.reduce();
+
+    return (left.get_denominator() == right.get_denominator() &&
+            left.get_numerator() == right.get_numerator());
+}
+//Оператор неравенство
+bool operator!=(Fraction left,Fraction right){
+
+    left.to_improper();
+    right.to_improper();
+    left.reduce();
+    right.reduce();
+
+    return (left.get_denominator() != right.get_denominator() &&
+            left.get_numerator() != right.get_numerator());
+}
+//Оператор больше
+bool operator>(Fraction left, Fraction right){
+
+    left.to_improper();
+    right.to_improper();
+    left.reduce();
+    right.reduce();
+
+    if (left.get_numerator() == right.get_numerator()) {
+
+        return (left.get_denominator() < right.get_denominator());
+    }
+    else if (left.get_denominator() == right.get_denominator()) {
+
+        return (left.get_numerator() > right.get_numerator());
+    }
+    else{
+        left.getCommonDenominator(LCM(left.get_denominator(), right.get_denominator()) / left.get_denominator());
+        right.getCommonDenominator(LCM(left.get_denominator(), right.get_denominator()) / right.get_denominator());
+
+        return (left.get_numerator() > right.get_numerator());
+    }
+}
+//Оператор меньше
+bool operator<(Fraction left, Fraction right){
+
+    left.to_improper();
+    right.to_improper();
+    left.reduce();
+    right.reduce();
+
+    if (left.get_numerator() == right.get_numerator()) {
+
+        return (left.get_denominator() > right.get_denominator());
+    }
+    else if (left.get_denominator() == right.get_denominator()) {
+
+        return (left.get_numerator() < right.get_numerator());
+    }
+    else {
+        left.getCommonDenominator(LCM(left.get_denominator(), right.get_denominator()) / left.get_denominator());
+        right.getCommonDenominator(LCM(left.get_denominator(), right.get_denominator()) / right.get_denominator());
+
+        return (left.get_numerator() < right.get_numerator());
+    }
+}
+//Оператор больше или равно
+bool operator>=(const Fraction& left, const Fraction& right){
+    if (left == right) {
+        return true;
+    }
+    else if (left > right) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+//Оператор меньше или равно
+bool operator<=(const Fraction& left, const  Fraction& right){
+
+    if (left == right) {
+        return true;
+    }
+    else if (left < right) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
 
 bool CorrectFraction(const Fraction& A) {
     return (A.get_numerator() && A.get_denominator() != 0);

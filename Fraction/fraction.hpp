@@ -15,9 +15,15 @@ public:
     void set_numerator(int numerator);
     void set_denominator(int denominator);
     void set_wholePart(int wholePart);
-
-    //Конструктор
-    Fraction(int wholePart = int(), int numerator = int(), int denominator = int());
+            /*Конструкторы*/
+    //Конструктор по умолчанию
+    Fraction();
+    //Конструктор №1
+    Fraction(int wholePart);
+    //Конструктор №2
+    Fraction(int numerator, int denominator);
+    //Конструктор №3
+    Fraction(int wholePart, int numerator, int denominator);
     //Конструктор копирования
     Fraction(const Fraction& other);
     //Деструктор
@@ -27,12 +33,30 @@ public:
     //Вывод дроби на экран 
     void PrintFraction() const;
 
-    
+    //Переобразование в неправильную дробь
+    Fraction& to_improper();
+    //Переобразование в правильную дробь
+    Fraction& to_proper();
+    //Меняем числитель и знаменатель местами
+    Fraction& inverted()const;
+    //Получение общего знаменателя
+    Fraction& getCommonDenominator(const int additionalMultiplier);
+    //Сокращение дроби
+    Fraction& reduce();
+
+
 
             /*Перегрузка операторов*/
     //Оператор присваивания
     Fraction& operator=(const Fraction& other);
-    
+    //Оператор Сложение, совмещённое с присваиванием
+    Fraction& operator+=(const Fraction& other);
+    //Оператор Вычитание, совмещённое с присваиванием
+    Fraction& operator-=(const Fraction& other);
+    //Оператор Умножение, совмещённое с присваиванием
+    Fraction& operator*=(const Fraction& other);
+    //Оператор Деление, совмещённое с присваиванием
+    Fraction& operator/=(const Fraction& other);
     
 
 private:
@@ -46,13 +70,25 @@ int GCD(int first, int second);
 int LCM(int first, int second);
 
 //Оператор сложения
-Fraction operator+(const Fraction& left, const Fraction& right);
+Fraction operator+(Fraction left, Fraction right);
 //Оператор вычитания
-Fraction operator-(const Fraction& left, const Fraction& right);
+Fraction operator-(Fraction left, Fraction right);
 //Оператор умножения
-Fraction operator*(const Fraction& left, const Fraction& right);
+Fraction operator*(Fraction left, Fraction right);
 //Оператор деления
 Fraction operator/(const Fraction& left, const Fraction& right);
+//Оператор равенство
+bool operator==(Fraction left, Fraction right);
+//Оператор неравенство
+bool operator!=(Fraction left, Fraction right);
+//Оператор больше
+bool operator>(Fraction left, Fraction right);
+//Оператор меньше
+bool operator<(Fraction left, Fraction right);
+//Оператор больше или равно
+bool operator>=(const Fraction& left, const Fraction& right);
+//Оператор меньше или равно
+bool operator<=(const Fraction& left, const  Fraction& right);
 
 bool CorrectFraction(const Fraction& A);
 

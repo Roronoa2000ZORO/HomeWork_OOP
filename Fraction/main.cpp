@@ -1,28 +1,35 @@
 ﻿#include"fraction.hpp"
 
 /*
-1. Доработать все операторы для возможности манипуляций целых частей над дробными
+1. Реализовать манипуляции с отрицательными дробями
 2. Оформить правильно main.cpp
 3. Реализовать работу с пользователем
 4. Реализовать корректировку ошибочных данных
-ДЗ
-1. Арифметические операторы:+, -, *, /;
-2. Составные присваивания:	+=, -=, *=, /=;
-3. Операторы сравнения:		==, !=, >, <, >=, <=;
-4. Написать метод ??? reduce(???), который сокращает дробь;
 */
 
 int main() {
     setlocale(LC_ALL, "RU");
 
-    Fraction A(0, 2, 5);// целая часть, числитель, знаменатель.
-    A.PrintFraction();
-    cout << "\t";
-    Fraction B(0, 3, 6);// целая часть, числитель, знаменатель.
-    B.PrintFraction();
-    cout << "\t";
+    Fraction A(0, 1, 2);
+    Fraction B(0, 2, 4);
     Fraction D = A * B;
+    A.PrintFraction();
+    B.PrintFraction();
     D.PrintFraction();
-    
+    cout << endl;
+    Fraction E = A + B;
+    A.PrintFraction();
+    B.PrintFraction();
+    E.PrintFraction();
+    cout << endl;
+    D += A + B;
+    D.PrintFraction();
+    cout << endl;
+    if (A == B) {
+        cout << "WoooooooooooW";
+    }
+    else {
+        cout << "LoooooooooooL";
+    }
     return 0;
 }
