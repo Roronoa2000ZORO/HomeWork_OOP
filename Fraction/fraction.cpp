@@ -321,77 +321,111 @@ ostream& operator<<(ostream& ost, const Fraction& obj){
     return ost;
 }
 
+//#define KOLHOZ
+
 //Оператор извлечения из потока
 istream& operator>>(istream& ist, Fraction& obj){ 
-    /*int wh, n, d;
-    do{
-        ist >> wh;
-    } while (true);
+    // Улучшеный вариант
+    int first, middle, second;
+    ist >> first;
+        
+    if (ist.peek() == '\n') {
+        obj.set_wholePart(first);
+
+        ist.ignore(32000, '\n');
+    } 
+    else if(ist.peek() == ' ' || ist.peek() == '(') {
+
+        ist >> middle;
+        ist.ignore();
+        ist >> second;
+
+        obj.set_wholePart(first);
+        obj.set_numerator(middle);
+        obj.set_denominator(second);
+
+        ist.ignore(32000, '\n');
+    }
+    else if (ist.peek() == '/') {
+        ist.ignore();
+        ist >> second;
+        obj.set_numerator(first);
+        obj.set_denominator(second);
+
+        
+    }
+
+    ist.clear();
+    ist.ignore(32000, '\n');
+
+    return ist;
+
+    // Колхозный вариант
+    #ifdef KOLHOZ
     
-    ;*/
-    // Далее полный колхоз
-    string str;
-    getline(ist, str);
-    int* p = new int[static_cast<int>(size(str))]{};
-    int space = 0, division = 0, end = 0;
-
-    for (int i = 0; i < str.length(); i++){
-
-        switch (str[i]){
-        case '/':
-            division = i;
-            break;
-        case ' ':
-            space = i;
-            break;
-        case '(':
-            space = i;
-            break;
-        case ')':
-            end = i;
-            break;
-        default:
-            break;
+        string str;
+        getline(ist, str);
+        int* p = new int[static_cast<int>(size(str))]{};
+        int space = 0, division = 0, end = 0;
+    
+        for (int i = 0; i < str.length(); i++){
+    
+            switch (str[i]){
+            case '/':
+                division = i;
+                break;
+            case ' ':
+                space = i;
+                break;
+            case '(':
+                space = i;
+                break;
+            case ')':
+                end = i;
+                break;
+            default:
+                break;
+            }
         }
-    }
-
-    if (division == 0) { // только целое число
+    
+        if (division == 0) { // только целое число
+            obj.set_wholePart(stoi(str));
+            return ist;
+        }
+        else if (space == 0) { // только дробные числа
+            int i = division + 1, denom = 0;
+                obj.set_numerator(stoi(str));
+            do{
+                denom *= 10;
+                denom += str[i] - '0';
+                i++;
+            } while (i < str.length());
+            obj.set_denominator(denom);
+            return ist;
+        }
+    
+        //      далее смешанные
+        int i = space + 1, numer = 0, denom = 0;
         obj.set_wholePart(stoi(str));
-        return ist;
-    }
-    else if (space == 0) { // только дробные числа
-        int i = division + 1, denom = 0;
-            obj.set_numerator(stoi(str));
-        do{
+        do {
+            numer *= 10;
+            numer += str[i] - '0';
+            i++;
+        } while (i < division );
+    
+        obj.set_numerator(numer);
+        i++;
+        if (end == 0)end = str.length();
+        do {
             denom *= 10;
             denom += str[i] - '0';
             i++;
-        } while (i < str.length());
+        } while (i < end);
+    
         obj.set_denominator(denom);
+    
         return ist;
-    }
-
-    //      далее смешанные
-    int i = space + 1, numer = 0, denom = 0;
-    obj.set_wholePart(stoi(str));
-    do {
-        numer *= 10;
-        numer += str[i] - '0';
-        i++;
-    } while (i < division );
-
-    obj.set_numerator(numer);
-    i++;
-    if (end == 0)end = str.length();
-    do {
-        denom *= 10;
-        denom += str[i] - '0';
-        i++;
-    } while (i < end);
-
-    obj.set_denominator(denom);
-
-    return ist;
+    #endif // KOLHOZ
 
 }
 
