@@ -2,6 +2,7 @@
 #define FRACTION_HPP
 
 #include <iostream>
+#include <string>
 using namespace std;
 
 
@@ -64,23 +65,28 @@ private:
     int denominator;
     int wholePart;
 };
+        /*Функции*/
+
 //Наибольший общий делитель(алгоритм Евклида)
 int GCD(int first, int second);
 //Наименьшее общее кратное
 int LCM(int first, int second);
 
+        /*Арифметические операторы*/
 //Оператор сложения
-Fraction operator+(Fraction left, Fraction right);
+Fraction operator+(const Fraction& left,  const Fraction& right);
 //Оператор вычитания
 Fraction operator-(Fraction left, Fraction right);
 //Оператор умножения
 Fraction operator*(Fraction left, Fraction right);
 //Оператор деления
 Fraction operator/(const Fraction& left, const Fraction& right);
+
+        /*Операторы сравнения*/
 //Оператор равенство
 bool operator==(Fraction left, Fraction right);
 //Оператор неравенство
-bool operator!=(Fraction left, Fraction right);
+bool operator!=(const Fraction& left, const Fraction& right);
 //Оператор больше
 bool operator>(Fraction left, Fraction right);
 //Оператор меньше
@@ -90,9 +96,13 @@ bool operator>=(const Fraction& left, const Fraction& right);
 //Оператор меньше или равно
 bool operator<=(const Fraction& left, const  Fraction& right);
 
-bool CorrectFraction(const Fraction& A);
+        /*Прочие операторы*/
+//Оператор вставки в поток
+ostream& operator<<(ostream& ost, const  Fraction& obj);
+//Оператор извлечения из потока
+istream& operator>>(istream& ist, Fraction& obj);
 
-bool CorrectWholePart(const Fraction& A);
+
 
 
 

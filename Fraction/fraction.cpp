@@ -118,7 +118,7 @@ Fraction& Fraction::to_proper(){
 //Меняем числитель и знаменатель местами
 Fraction& Fraction::inverted() const{
 
-    Fraction inverted = *this;	//копируем объект!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    Fraction inverted = *this;
     inverted.to_improper();
     swap(inverted.numerator, inverted.denominator);
     return inverted;
@@ -195,21 +195,19 @@ int LCM(int first, int second) {
     
     return first * second / GCD(first, second);
 }
+
+
+
+            /*Арифметические операторы*/
+
 //Оператор сложения
-Fraction operator+(Fraction left, Fraction right){
+Fraction operator+(const Fraction& left, const Fraction& right){
     
-    left.to_improper();
-    right.to_improper();
-
-    if (left.get_denominator() != right.get_denominator()) {
-
-        left.getCommonDenominator(LCM(left.get_denominator(), right.get_denominator()) / left.get_denominator());
-        right.getCommonDenominator(LCM(left.get_denominator(), right.get_denominator()) / right.get_denominator());
-    }
-    
-    return Fraction(
-        left.get_numerator() + right.get_numerator(),
-        left.get_denominator()
+    return Fraction
+    (
+        left.get_wholePart() + right.get_wholePart(),
+        left.get_numerator() * right.get_denominator() + right.get_numerator() * left.get_denominator(),
+        left.get_denominator() * right.get_denominator()
     ).to_proper().reduce();
 }
 //Оператор вычитания
@@ -244,6 +242,10 @@ Fraction operator*(Fraction left, Fraction right) {
 Fraction operator/(const Fraction& left, const Fraction& right) {
     return left * right.inverted();
 }
+
+
+            /*Операторы сравнения*/
+
 //Оператор равенство
 bool operator==(Fraction left, Fraction right){
     left.to_improper();
@@ -255,93 +257,145 @@ bool operator==(Fraction left, Fraction right){
             left.get_numerator() == right.get_numerator());
 }
 //Оператор неравенство
-bool operator!=(Fraction left,Fraction right){
+bool operator!=(const Fraction& left, const Fraction& right){
 
-    left.to_improper();
-    right.to_improper();
-    left.reduce();
-    right.reduce();
-
-    return (left.get_denominator() != right.get_denominator() &&
-            left.get_numerator() != right.get_numerator());
+    return !(left == right);
 }
 //Оператор больше
 bool operator>(Fraction left, Fraction right){
 
     left.to_improper();
     right.to_improper();
-    left.reduce();
-    right.reduce();
 
-    if (left.get_numerator() == right.get_numerator()) {
-
-        return (left.get_denominator() < right.get_denominator());
-    }
-    else if (left.get_denominator() == right.get_denominator()) {
-
-        return (left.get_numerator() > right.get_numerator());
-    }
-    else{
-        left.getCommonDenominator(LCM(left.get_denominator(), right.get_denominator()) / left.get_denominator());
-        right.getCommonDenominator(LCM(left.get_denominator(), right.get_denominator()) / right.get_denominator());
-
-        return (left.get_numerator() > right.get_numerator());
-    }
+    return left.get_numerator() * right.get_denominator() >
+            right.get_numerator() * left.get_denominator();
 }
 //Оператор меньше
 bool operator<(Fraction left, Fraction right){
 
     left.to_improper();
     right.to_improper();
-    left.reduce();
-    right.reduce();
 
-    if (left.get_numerator() == right.get_numerator()) {
-
-        return (left.get_denominator() > right.get_denominator());
-    }
-    else if (left.get_denominator() == right.get_denominator()) {
-
-        return (left.get_numerator() < right.get_numerator());
-    }
-    else {
-        left.getCommonDenominator(LCM(left.get_denominator(), right.get_denominator()) / left.get_denominator());
-        right.getCommonDenominator(LCM(left.get_denominator(), right.get_denominator()) / right.get_denominator());
-
-        return (left.get_numerator() < right.get_numerator());
-    }
+    return left.get_numerator() * right.get_denominator() <
+        right.get_numerator() * left.get_denominator();
 }
 //Оператор больше или равно
 bool operator>=(const Fraction& left, const Fraction& right){
-    if (left == right) {
-        return true;
-    }
-    else if (left > right) {
-        return true;
-    }
-    else {
-        return false;
-    }
+
+    return !(left < right);
 }
 //Оператор меньше или равно
 bool operator<=(const Fraction& left, const  Fraction& right){
 
-    if (left == right) {
-        return true;
-    }
-    else if (left < right) {
-        return true;
-    }
-    else {
-        return false;
-    }
+    return !(left > right);
 }
 
 
-bool CorrectFraction(const Fraction& A) {
-    return (A.get_numerator() && A.get_denominator() != 0);
+            /*Прочие операторы*/
+
+//Оператор вставки в поток
+ostream& operator<<(ostream& ost, const Fraction& obj){
+
+    if (obj.get_wholePart()) {
+
+        ost << obj.get_wholePart();
+    }
+    if (obj.get_numerator()){
+
+        if (obj.get_wholePart()) {
+
+            ost << "(";
+        }
+        ost << obj.get_numerator() << "/" << obj.get_denominator();
+
+        if (obj.get_wholePart()) {
+
+            ost << ")";
+        }
+    }
+    else if (obj.get_wholePart() == 0) {
+
+        ost << 0;
+    }
+
+    return ost;
 }
 
-bool CorrectWholePart(const Fraction& A) {
-    return (A.get_numerator() && A.get_denominator() != 0);
+//Оператор извлечения из потока
+istream& operator>>(istream& ist, Fraction& obj){ 
+    /*int wh, n, d;
+    do{
+        ist >> wh;
+    } while (true);
+    
+    ;*/
+    // Далее полный колхоз
+    string str;
+    getline(ist, str);
+    int* p = new int[static_cast<int>(size(str))]{};
+    int space = 0, division = 0, end = 0;
+
+    for (int i = 0; i < str.length(); i++){
+
+        switch (str[i]){
+        case '/':
+            division = i;
+            break;
+        case ' ':
+            space = i;
+            break;
+        case '(':
+            space = i;
+            break;
+        case ')':
+            end = i;
+            break;
+        default:
+            break;
+        }
+    }
+
+    if (division == 0) { // только целое число
+        obj.set_wholePart(stoi(str));
+        return ist;
+    }
+    else if (space == 0) { // только дробные числа
+        int i = division + 1, denom = 0;
+            obj.set_numerator(stoi(str));
+        do{
+            denom *= 10;
+            denom += str[i] - '0';
+            i++;
+        } while (i < str.length());
+        obj.set_denominator(denom);
+        return ist;
+    }
+
+    //      далее смешанные
+    int i = space + 1, numer = 0, denom = 0;
+    obj.set_wholePart(stoi(str));
+    do {
+        numer *= 10;
+        numer += str[i] - '0';
+        i++;
+    } while (i < division );
+
+    obj.set_numerator(numer);
+    i++;
+    if (end == 0)end = str.length();
+    do {
+        denom *= 10;
+        denom += str[i] - '0';
+        i++;
+    } while (i < end);
+
+    obj.set_denominator(denom);
+
+    return ist;
+
 }
+
+
+
+
+
