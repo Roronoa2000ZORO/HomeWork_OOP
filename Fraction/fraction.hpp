@@ -1,5 +1,6 @@
 ﻿#ifndef FRACTION_HPP
 #define FRACTION_HPP
+#define _CRT_SECURE_NO_WARNINGS
 
 #include <iostream>
 #include <string>
@@ -19,11 +20,13 @@ public:
             /*Конструкторы*/
     //Конструктор по умолчанию
     Fraction();
-    //Конструктор №1
+    //Конструктор № 1.1
     Fraction(int wholePart);
-    //Конструктор №2
+    //Конструктор № 1.2
+    Fraction(double number);
+    //Конструктор № 2
     Fraction(int numerator, int denominator);
-    //Конструктор №3
+    //Конструктор № 3
     Fraction(int wholePart, int numerator, int denominator);
     //Конструктор копирования
     Fraction(const Fraction& other);
@@ -58,6 +61,14 @@ public:
     Fraction& operator*=(const Fraction& other);
     //Оператор Деление, совмещённое с присваиванием
     Fraction& operator/=(const Fraction& other);
+
+            /*Операторы преобразовании типов:*/
+    //Преобразование в целое число
+    operator int();
+    //Преобразование в смешаное число
+    operator double();
+
+    
     
 
 private:

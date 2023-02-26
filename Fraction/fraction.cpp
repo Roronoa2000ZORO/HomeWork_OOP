@@ -46,21 +46,37 @@ Fraction::Fraction() {
     numerator = int();
     denominator = 1;
 }
-//Конструктор №1
+//Конструктор № 1.1
 Fraction::Fraction(int wholePart){
 
     this->wholePart = wholePart;
     numerator = int();
     denominator = 1;
 }
-//Конструктор №2
+//Конструктор № 1.2
+Fraction::Fraction(double number){
+
+    wholePart = (int)number;
+    numerator = int();
+    denominator = 1;
+
+    number -= (int)number;
+    do {
+        denominator *= 10;
+        numerator = number * denominator;
+
+    } while (numerator % 10 != 0);
+
+    this->reduce();
+}
+//Конструктор № 2
 Fraction::Fraction(int numerator, int denominator){
 
     wholePart = int();
     this->numerator = numerator;
     set_denominator(denominator);
 }
-//Конструктор №3
+//Конструктор № 3
 Fraction::Fraction(int wholePart, int numerator, int denominator){
 
     this->wholePart = wholePart;
@@ -172,6 +188,21 @@ Fraction& Fraction::operator/=(const Fraction& other){
 
     return *this = *this / other;
 }
+
+
+                        /*Операторы преобразовании типов:*/
+
+//Преобразование в целое число
+Fraction::operator int(){
+
+    return wholePart;
+}
+//Преобразование в смешаное число
+Fraction::operator double(){
+
+    return wholePart + (double)numerator / denominator;
+}
+
 
 
 /*----------------------------------end-class-------------------------------------------------------*/
@@ -322,19 +353,43 @@ ostream& operator<<(ostream& ost, const Fraction& obj){
 }
 
 //#define KOLHOZ
+//#define IMPROVED_VERSION
 
 //Оператор извлечения из потока
 istream& operator>>(istream& ist, Fraction& obj){ 
+
+    //Супер улучшенный вариант
+    const int SIZE = 256;
+    char buffer[SIZE] = {};
+    char delimiters[] = "/ ()";
+    int number[3] = {};
+    //is >> buffer;
+    ist.getline(buffer, SIZE);
+
+    int n = 0;	//счетчик чисел, извлеченных из строки
+    for (char* pch = strtok(buffer, delimiters); pch; pch = strtok(NULL, delimiters))
+        number[n++] = atoi(pch);
+
+    obj = Fraction();	//Обнуляем объект, сбрасываем его до объекта по умолчанию.
+    switch (n)
+    {
+    case 1: obj.set_wholePart(number[0]); break;
+    case 2: obj.set_numerator(number[0]); obj.set_denominator(number[1]); break;
+    case 3: obj.set_wholePart(number[0]); obj.set_numerator(number[1]); obj.set_denominator(number[2]);
+    }
+    return ist;
+
     // Улучшеный вариант
+#ifdef IMPROVED_VERSION
     int first, middle, second;
     ist >> first;
-        
+
     if (ist.peek() == '\n') {
         obj.set_wholePart(first);
 
         ist.ignore(32000, '\n');
-    } 
-    else if(ist.peek() == ' ' || ist.peek() == '(') {
+    }
+    else if (ist.peek() == ' ' || ist.peek() == '(') {
 
         ist >> middle;
         ist.ignore();
@@ -352,13 +407,15 @@ istream& operator>>(istream& ist, Fraction& obj){
         obj.set_numerator(first);
         obj.set_denominator(second);
 
-        
+
     }
 
     ist.clear();
     ist.ignore(32000, '\n');
 
     return ist;
+#endif // IMPROVED_VERSION
+
 
     // Колхозный вариант
     #ifdef KOLHOZ
