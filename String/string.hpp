@@ -1,4 +1,4 @@
-#ifndef STRING_HPP
+ï»¿#ifndef STRING_HPP
 #define STRING_HPP
 
 #include <iostream>
@@ -16,9 +16,9 @@ public:
     char set_str(char sign, int j);
 
                     /*Constructors*/
-    //Constructor ¹ 1.1
+    //Constructor â„– 1.1
     String(int size = 80);
-    //Constructor ¹ 1.2
+    //Constructor â„– 1.2
     String(const char str[80]);
     //Copy Constructor
     String(const String& other);

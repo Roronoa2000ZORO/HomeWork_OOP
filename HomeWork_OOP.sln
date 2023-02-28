@@ -7,7 +7,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Fraction_HW", "Fraction\Fra
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Distance_HW", "Distance\Distance.vcxproj", "{236ED9C7-29B4-4FA6-A434-0EE163B83717}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "String_HW", "String_HW\String_HW.vcxproj", "{9FB17E50-CDAE-448E-9177-1D5AE9ED35F9}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "String_HW", "String\String.vcxproj", "{9FB17E50-CDAE-448E-9177-1D5AE9ED35F9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

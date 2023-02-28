@@ -1,4 +1,4 @@
-#include"string.hpp"
+ï»¿#include"string.hpp"
 
 /*--------------------------------------start-Class------------------------------------------------*/
 
@@ -20,13 +20,13 @@ char String::set_str(char sign, int j)
 
                         /*Constructors*/
 
-//Constructor ¹ 1.1
+//Constructor â„– 1.1
 String::String(int size)
 {
     this->size = size;
     str = new char[size] {};
 }
-//Constructor ¹ 1.2
+//Constructor â„– 1.2
 String::String(const char str[80])
 {
     size = 80;
