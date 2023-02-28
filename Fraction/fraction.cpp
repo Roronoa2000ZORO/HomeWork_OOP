@@ -56,18 +56,14 @@ Fraction::Fraction(int wholePart){
 //Конструктор № 1.2
 Fraction::Fraction(double number){
 
+    number += 1e-10;
     wholePart = (int)number;
-    numerator = int();
-    denominator = 1;
+    number -= wholePart;
 
-    number -= (int)number;
-    do {
-        denominator *= 10;
-        numerator = number * denominator;
+    denominator = 1e+9;
+    numerator = number * denominator;
 
-    } while (numerator % 10 != 0);
-
-    this->reduce();
+    reduce();
 }
 //Конструктор № 2
 Fraction::Fraction(int numerator, int denominator){

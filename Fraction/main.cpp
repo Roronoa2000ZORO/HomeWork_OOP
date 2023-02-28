@@ -19,7 +19,7 @@ int main() {
     cout << a << endl;
     
 
-    Fraction B = 2.75;
+    Fraction B = 2.76;
     cout << B << endl;
 
     return 0;
