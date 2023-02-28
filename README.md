@@ -2,6 +2,16 @@
 TODO:
 
 
+
+1. Пять проектов на выбор залить на GitHub;
+2. 
+   Проверочный код в проекте IntroductionToOOP\String:
+	https://github.com/okovtun/PV_211/blob/3f251e284849ad3896fd7e019ca2d3d8571497b9/IntroductionToOOP/String/main.cpp#L48
+должен заработать.
+
+
+DONE:(5)
+
 1. Проверочный код в секции HOME_WORK_1 должен заработать:
 	https://github.com/okovtun/PV_211/blob/5afd5711a7935f874783ff64f552bcc10ae46edd/IntroductionToOOP/Fraction/main.cpp#L415
 2. Проверочный код в секции HOME_WORK_2 должен заработать:
