@@ -1,5 +1,6 @@
 ﻿#include"string.hpp"
 
+
 /*--------------------------------------start-Class------------------------------------------------*/
 
 int String::get_size() const
@@ -12,9 +13,9 @@ const char* String::get_str() const
     return str;
 }
 
-char String::set_str(char sign, int j)
+char* String::get_str()
 {
-    return str[j] = sign;
+    return str;
 }
 
 
@@ -27,11 +28,11 @@ String::String(int size)
     str = new char[size] {};
 }
 //Constructor № 1.2
-String::String(const char str[80])
+String::String(const char* str)
 {
-    size = 80;
+    size = (int)strlen(str) + 1; //+1 для NULL-terminator
     this->str = new char[size] {};
-    for (size_t i = 0; str[i] != '\0'; i++)
+    for (size_t i = 0; str[i]; i++)
     {
         this->str[i] = str[i];
     }
@@ -41,10 +42,17 @@ String::String(const String& other)
 {
     size = other.size;
     str = new char[size] {};
-    for (size_t i = 0; other.str[i] != '\0'; i++)
+    for (size_t i = 0; i < size; i++)
     {
         str[i] = other.str[i];
     }
+}
+//Move constructor
+String::String(String&& obj) noexcept
+{
+    size = obj.size;
+    str = obj.str;
+    obj.str = nullptr;
 }
 //Destructor
 String::~String()
@@ -55,14 +63,47 @@ String::~String()
 //Operator direct assignment
 String& String::operator=(const String& other)
 {
+    if (this == &other) return *this;
+    delete[] str;
+
     size = other.size;
     str = new char[size] {};
-    for (size_t i = 0; other.str[i] != '\0'; i++)
+    for (size_t i = 0; i < size; i++)
     {
         str[i] = other.str[i];
     }
     return *this;
 }
+//Operator addition assignment
+String& String::operator+=(const String& other)
+{
+    return *this = *this + other;
+}
+//Operator subscript
+char String::operator[](int i) const
+{
+    return str[i];
+}
+//Operator subscript
+char& String::operator[](int i)
+{
+    return str[i];
+}
+//Move assignment
+String& String::operator=(String&& other) noexcept
+{
+    if (this == &other) return *this;
+
+    delete[] str;
+    size = other.size;
+    str = other.str;
+    other.str = nullptr;
+    
+    return *this;
+}
+
+
+
 
 
 
@@ -75,26 +116,20 @@ String& String::operator=(const String& other)
 //Operator addition
 String operator+(const String& left, const String& right)
 {
-    String result;
-    int j = 0;
-    for (size_t i = 0; left.get_str()[i] != '\0'; i++, j++)
-    {
-        
-        result.set_str(left.get_str()[i], j);
+    String result(left.get_size() + right.get_size() - 1);
+    
+    for (int i = 0; i < left.get_size(); i++)
+    { 
+        result[i] = left[i];
     }
-    for (size_t i = 0; right.get_str()[i] != '\0'; i++, j++)
-    {
-        
-        result.set_str(right.get_str()[i], j);
+    for (int i = 0; i < right.get_size(); i++)
+    { 
+        result[i + left.get_size() - 1] = right[i];
     }
     return result;
 }
 //The insertion operator
 ostream& operator<<(ostream& ost, const String& obj)
 {
-    for (size_t i = 0; obj.get_str()[i] != '\0'; i++)
-    {
-        ost << obj.get_str()[i];
-    }
-    return ost;
+    return ost << obj.get_str();
 }
