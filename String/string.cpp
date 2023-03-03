@@ -34,12 +34,8 @@ String::String(const char* str):String((int)strlen(str) + 1)
     }
 }
 //Copy Constructor
-String::String(const String& other): size(other.size), str(new char[size] {})
+String::String(const String& other): String(other.str)
 {
-    for (size_t i = 0; i < size; i++)
-    {
-        str[i] = other.str[i];
-    }
 }
 //Move constructor
 String::String(String&& obj) noexcept : size(obj.size), str(obj.str)
