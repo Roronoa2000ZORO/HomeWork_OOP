@@ -26,7 +26,7 @@ String::String(int size) :size(size), str(new char[size] {})
 {   
 }
 //Constructor № 1.2
-String::String(const char* str):size((int)strlen(str) + 1), str(new char[size] {})
+String::String(const char* str):String((int)strlen(str) + 1)
 {
     for (size_t i = 0; str[i]; i++)
     {
