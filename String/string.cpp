@@ -22,36 +22,28 @@ char* String::get_str()
                         /*Constructors*/
 
 //Constructor № 1.1
-String::String(int size)
-{
-    this->size = size;
-    str = new char[size] {};
+String::String(int size) :size(size), str(new char[size] {})
+{   
 }
 //Constructor № 1.2
-String::String(const char* str)
+String::String(const char* str):size((int)strlen(str) + 1), str(new char[size] {})
 {
-    size = (int)strlen(str) + 1; //+1 для NULL-terminator
-    this->str = new char[size] {};
     for (size_t i = 0; str[i]; i++)
     {
         this->str[i] = str[i];
     }
 }
 //Copy Constructor
-String::String(const String& other)
+String::String(const String& other): size(other.size), str(new char[size] {})
 {
-    size = other.size;
-    str = new char[size] {};
     for (size_t i = 0; i < size; i++)
     {
         str[i] = other.str[i];
     }
 }
 //Move constructor
-String::String(String&& obj) noexcept
+String::String(String&& obj) noexcept : size(obj.size), str(obj.str)
 {
-    size = obj.size;
-    str = obj.str;
     obj.str = nullptr;
 }
 //Destructor
