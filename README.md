@@ -3,6 +3,12 @@ TODO:
 
 
 
+TODO:
+Добавить в класс String Move-методы:
+https://legacy.cplusplus.com/doc/tutorial/classes2/
+
+
+DONE: (6)
 1. Пять проектов на выбор залить на GitHub;
 2. 
    Проверочный код в проекте IntroductionToOOP\String:
