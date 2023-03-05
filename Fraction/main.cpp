@@ -8,15 +8,12 @@
 int main() {
     setlocale(LC_ALL, "RU");
 
-    Fraction C(2, 3, 4);
+    Fraction C(3, 5, 6);
     cout << C << endl;
-    int c = C;
-    cout << c << endl;
 
-    Fraction A(2, 3, 4);
+    Fraction A(0, 7, 12);
     cout << A << endl;
-    double a = A;
-    cout << a << endl;
+    cout << C+A << endl;
     
 
     Fraction B = 2.76;
