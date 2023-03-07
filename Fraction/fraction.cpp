@@ -45,6 +45,7 @@ Fraction::Fraction() {
     wholePart = int();
     numerator = int();
     denominator = 1;
+    negative = (wholePart < 0 || numerator < 0);
 }
 //Конструктор № 1.1
 Fraction::Fraction(int wholePart){
@@ -52,6 +53,7 @@ Fraction::Fraction(int wholePart){
     this->wholePart = wholePart;
     numerator = int();
     denominator = 1;
+    negative = (wholePart < 0 || numerator < 0);
 }
 //Конструктор № 1.2
 Fraction::Fraction(double number){
@@ -62,15 +64,18 @@ Fraction::Fraction(double number){
 
     denominator = 1e+9;
     numerator = number * denominator;
+    negative = (wholePart < 0 || numerator < 0);
 
     reduce();
 }
 //Конструктор № 2
 Fraction::Fraction(int numerator, int denominator){
-
+    
     wholePart = int();
     this->numerator = numerator;
     set_denominator(denominator);
+    negative = (wholePart < 0 || numerator < 0);
+    
 }
 //Конструктор № 3
 Fraction::Fraction(int wholePart, int numerator, int denominator){
@@ -78,6 +83,7 @@ Fraction::Fraction(int wholePart, int numerator, int denominator){
     this->wholePart = wholePart;
     this->numerator = numerator;
     set_denominator(denominator);
+    negative = (wholePart < 0 || numerator < 0);
 }
 //Конструктор копирования
 Fraction::Fraction(const Fraction& other) {
@@ -85,6 +91,7 @@ Fraction::Fraction(const Fraction& other) {
     this->numerator = other.numerator;
     this->denominator = other.denominator;
     this->wholePart = other.wholePart;
+    this->negative = other.negative;
 }
 //Деструктор
 Fraction::~Fraction() {}
@@ -229,6 +236,7 @@ int LCM(int first, int second) {
 
 //Оператор сложения
 Fraction operator+(const Fraction& left, const Fraction& right){
+   
     
     return Fraction
     (

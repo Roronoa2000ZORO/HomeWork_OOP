@@ -75,6 +75,7 @@ private:
     int numerator;
     int denominator;
     int wholePart;
+    bool negative;
 };
         /*Функции*/
 
