@@ -4,7 +4,7 @@
 int main() {
     setlocale(LC_ALL, "ru");
 
-    Human* group[]
+    /*Human* group[]
     {
         new Student("Ibragim", "Alikhanov", 23, "IT", "PV_211", 95, 99),
         new Teacher("Ishaq", "Aliev", 36, "IT", 12),
@@ -16,7 +16,12 @@ int main() {
     {
         group[i]->info();
         cout << "\n------------------------------------------------\n";
-    }
+    }*/
+    int a = 5, b = 7, c = 9;
+    c += a-- * ++b;
+    cout << a << " " << b << " " << c << endl;
+    return 0;
+    
 
     return 0;
 }
