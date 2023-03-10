@@ -3,6 +3,7 @@
 
 #include<iostream>
 #include<string>
+#include<fstream>
 
 using namespace std;
 
@@ -27,12 +28,14 @@ public:
 	void set_age(int age);
 
 	Human(HUMAN_TAKE_PARAMETERS);
-	~Human();
+	virtual ~Human();
 
 	virtual void info()const;
-
+	virtual ostream& print(ostream& os)const;
 };
 /*------------------------------end-class-Human------------------------------*/
+ostream& operator<<(ostream& os, const Human& obj);
+
 
 
 /*----------------------------start-class-Student----------------------------*/
@@ -61,6 +64,7 @@ public:
 	~Student();
 
 	void info()const;
+	ostream& print(ostream& os)const override;
 };
 /*------------------------------end-class-Student----------------------------*/
 
@@ -85,7 +89,7 @@ public:
 	~Teacher();
 
 	void info()const;
-	
+	ostream& print(ostream& os)const override;
 };
 /*------------------------------end-class-Teacher----------------------------*/
 
@@ -108,6 +112,7 @@ public:
 	~Graduate();
 
 	void info()const;
+	ostream& print(ostream& os)const override;
 };
 /*------------------------------end-class-Graduate----------------------------*/
 
@@ -117,7 +122,7 @@ public:
 #define QUALIFICATION_TAKE_PARAMETERS const string& degree
 #define QUALIFICATION_GIVE_PARAMETERS degree
 
-class Qualification : public Teacher
+class SeniorLecturer : public Teacher
 {
 private:
 	string degree;
@@ -126,11 +131,12 @@ public:
 
 	void set_degree(const string& degree);
 
-	Qualification(HUMAN_TAKE_PARAMETERS, TEACHER_TAKE_PARAMETERS, QUALIFICATION_TAKE_PARAMETERS);
-	~Qualification();
+	SeniorLecturer(HUMAN_TAKE_PARAMETERS, TEACHER_TAKE_PARAMETERS, QUALIFICATION_TAKE_PARAMETERS);
+	~SeniorLecturer();
 
 
 	void info()const;
+	ostream& print(ostream& os)const override;
 };
 /*----------------------------end-class-Qualification-------------------------*/
 

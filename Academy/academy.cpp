@@ -47,7 +47,18 @@ void Human::info()const
     cout << lastName << " " << firstName << " " << age << " лет" << endl;
 }
 
+ostream& Human::print(ostream& os) const
+{
+    return os << lastName << " " << firstName << " " << age;
+}
+
+
 /*------------------------------end-class-Human------------------------------*/
+
+ostream& operator<<(ostream& os, const Human& obj)
+{
+    return obj.print(os);
+}
 
 
 
@@ -116,6 +127,10 @@ void Student::info()const
     cout << "Студент по " << speciality << " " << group << " успеваемость - " << rating <<
         " посещаемость - " << attendance << "%" << endl;
 }
+ostream& Student::print(ostream& os) const
+{
+    return Human::print(os) << " " << speciality << " " << group << " " << rating << " " << attendance;
+}
 /*------------------------------end-class-Student----------------------------*/
 
 
@@ -158,6 +173,10 @@ void Teacher::info()const
     Human::info();
     cout << "Преподаватель по " << speciality << " " << experience << " лет стажа" << endl;
 }
+ostream& Teacher::print(ostream& os) const
+{
+    return Human::print(os) << " " << speciality << " " << experience;
+}
 /*------------------------------end-class-Teacher----------------------------*/
 
 
@@ -190,37 +209,47 @@ void Graduate::info()const
     Student::info();
     cout << subject << endl;
 }
+ostream& Graduate::print(ostream& os) const
+{
+    return Student::print(os) << " " << subject;
+}
 /*------------------------------end-class-Graduate----------------------------*/
 
 
 
 /*--------------------------start-class-Qualification-------------------------*/
 
-const string& Qualification::get_degree()const
+const string& SeniorLecturer::get_degree()const
 {
     return degree;
 }
 
-void Qualification::set_degree(const string& degree)
+void SeniorLecturer::set_degree(const string& degree)
 {
     this->degree = degree;
 }
 
 
-Qualification::Qualification(HUMAN_TAKE_PARAMETERS, TEACHER_TAKE_PARAMETERS, QUALIFICATION_TAKE_PARAMETERS)
+SeniorLecturer::SeniorLecturer(HUMAN_TAKE_PARAMETERS, TEACHER_TAKE_PARAMETERS, QUALIFICATION_TAKE_PARAMETERS)
     : Teacher(HUMAN_GIVE_PARAMETERS, TEACHER_GIVE_PARAMETERS)
 {
     set_degree(degree);
 }
 
-Qualification::~Qualification()
+SeniorLecturer::~SeniorLecturer()
 {
 }
 
 
-void Qualification::info()const
+void SeniorLecturer::info()const
 {
     Teacher::info();
     cout << degree << endl;
 }
+ostream& SeniorLecturer::print(ostream& os) const
+{
+    return Teacher::print(os) << " " << degree;
+}
 /*----------------------------end-class-Qualification-------------------------*/
+
+
