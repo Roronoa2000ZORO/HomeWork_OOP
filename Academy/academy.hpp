@@ -27,14 +27,19 @@ public:
 	void set_firstName(const string& firstName);
 	void set_age(int age);
 
+	Human();
 	Human(HUMAN_TAKE_PARAMETERS);
 	virtual ~Human();
 
 	virtual void info()const;
 	virtual ostream& print(ostream& os)const;
+	virtual istream& input(istream& is);
 };
 /*------------------------------end-class-Human------------------------------*/
+
 ostream& operator<<(ostream& os, const Human& obj);
+
+istream& operator>>(istream& is, Human& obj);
 
 
 
@@ -65,6 +70,7 @@ public:
 
 	void info()const;
 	ostream& print(ostream& os)const override;
+	istream& input(istream& is)override;
 };
 /*------------------------------end-class-Student----------------------------*/
 
@@ -90,6 +96,7 @@ public:
 
 	void info()const;
 	ostream& print(ostream& os)const override;
+	istream& input(istream& is)override;
 };
 /*------------------------------end-class-Teacher----------------------------*/
 
@@ -113,12 +120,13 @@ public:
 
 	void info()const;
 	ostream& print(ostream& os)const override;
+	istream& input(istream& is)override;
 };
 /*------------------------------end-class-Graduate----------------------------*/
 
 
 
-/*--------------------------start-class-Qualification-------------------------*/
+/*--------------------------start-class-SeniorLecturer-------------------------*/
 #define QUALIFICATION_TAKE_PARAMETERS const string& degree
 #define QUALIFICATION_GIVE_PARAMETERS degree
 
@@ -137,8 +145,9 @@ public:
 
 	void info()const;
 	ostream& print(ostream& os)const override;
+	istream& input(istream& is)override;
 };
-/*----------------------------end-class-Qualification-------------------------*/
+/*----------------------------end-class-SeniorLecturer-------------------------*/
 
 #endif // !ACADEMY_HPP
 

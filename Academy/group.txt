@@ -1,12 +1,4 @@
-class Student
 Ibragim Alikhanov 23 IT PV_211 95 99
-
-class Teacher
 Ishaq Aliev 36 IT 12
-
-class Graduate
 Rauf Novikov 27 Cybersecurity CS_156 97 96 Viruses
-
-class SeniorLecturer
 Halid Validov 46 Cybersecurity 20 Scientist
-

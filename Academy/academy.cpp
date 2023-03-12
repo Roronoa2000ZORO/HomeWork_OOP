@@ -31,6 +31,13 @@ void Human::set_age(int age)
     this->age = age;
 }
 
+Human::Human()
+{
+    firstName = string();
+    lastName = string();
+    age = int();
+}
+
 Human::Human(HUMAN_TAKE_PARAMETERS)
 {
     set_lastName(lastName);
@@ -52,12 +59,22 @@ ostream& Human::print(ostream& os) const
     return os << lastName << " " << firstName << " " << age;
 }
 
+istream& Human::input(istream& is)
+{
+    return is >> lastName >> firstName >> age;
+}
+
 
 /*------------------------------end-class-Human------------------------------*/
 
 ostream& operator<<(ostream& os, const Human& obj)
 {
     return obj.print(os);
+}
+
+istream& operator>>(istream& is, Human& obj)
+{
+    return obj.input(is);
 }
 
 
@@ -131,6 +148,10 @@ ostream& Student::print(ostream& os) const
 {
     return Human::print(os) << " " << speciality << " " << group << " " << rating << " " << attendance;
 }
+istream& Student::input(istream& is)
+{
+    return Human::input(is) >> speciality >> group >> rating >> attendance;
+}
 /*------------------------------end-class-Student----------------------------*/
 
 
@@ -177,6 +198,10 @@ ostream& Teacher::print(ostream& os) const
 {
     return Human::print(os) << " " << speciality << " " << experience;
 }
+istream& Teacher::input(istream& is)
+{
+    return Human::input(is) >> speciality >> experience;
+}
 /*------------------------------end-class-Teacher----------------------------*/
 
 
@@ -213,11 +238,15 @@ ostream& Graduate::print(ostream& os) const
 {
     return Student::print(os) << " " << subject;
 }
+istream& Graduate::input(istream& is)
+{
+    return Student::input(is) >> subject;
+}
 /*------------------------------end-class-Graduate----------------------------*/
 
 
 
-/*--------------------------start-class-Qualification-------------------------*/
+/*--------------------------start-class-SeniorLecturer-------------------------*/
 
 const string& SeniorLecturer::get_degree()const
 {
@@ -250,6 +279,10 @@ ostream& SeniorLecturer::print(ostream& os) const
 {
     return Teacher::print(os) << " " << degree;
 }
-/*----------------------------end-class-Qualification-------------------------*/
+istream& SeniorLecturer::input(istream& is)
+{
+    return Teacher::input(is) >> degree;
+}
+/*----------------------------end-class-SeniorLecturer-------------------------*/
 
 
