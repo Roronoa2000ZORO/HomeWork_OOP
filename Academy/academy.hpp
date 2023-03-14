@@ -7,6 +7,7 @@
 
 using namespace std;
 
+const int MAX_WIDTH_SPECIALITY = 35;
 
 /*----------------------------start-class-Human----------------------------*/
 #define HUMAN_TAKE_PARAMETERS const string& lastName, const string& firstName, int age
@@ -33,14 +34,18 @@ public:
 
 	virtual void info()const;
 	virtual ostream& print(ostream& os)const;
-	virtual istream& input(istream& is);
+	virtual ofstream& print(ofstream& ofs) const;
+
+	virtual istream& scan(istream& is);
+	virtual ifstream& scan(ifstream& ifs);
 };
 /*------------------------------end-class-Human------------------------------*/
 
 ostream& operator<<(ostream& os, const Human& obj);
+ofstream& operator<<(ofstream& ofs, const Human& obj);
 
 istream& operator>>(istream& is, Human& obj);
-
+ifstream& operator>>(ifstream& ifs, Human& obj);
 
 
 /*----------------------------start-class-Student----------------------------*/
@@ -70,7 +75,10 @@ public:
 
 	void info()const;
 	ostream& print(ostream& os)const override;
-	istream& input(istream& is)override;
+	ofstream& print(ofstream& ofs)const override;
+
+	istream& scan(istream& is)override;
+	ifstream& scan(ifstream& ifs)override;
 };
 /*------------------------------end-class-Student----------------------------*/
 
@@ -96,7 +104,10 @@ public:
 
 	void info()const;
 	ostream& print(ostream& os)const override;
-	istream& input(istream& is)override;
+	ofstream& print(ofstream& ofs)const override;
+
+	istream& scan(istream& is)override;
+	ifstream& scan(ifstream& ifs)override;
 };
 /*------------------------------end-class-Teacher----------------------------*/
 
@@ -120,7 +131,10 @@ public:
 
 	void info()const;
 	ostream& print(ostream& os)const override;
-	istream& input(istream& is)override;
+	ofstream& print(ofstream& ofs)const override;
+
+	istream& scan(istream& is)override;
+	ifstream& scan(ifstream& ifs)override;
 };
 /*------------------------------end-class-Graduate----------------------------*/
 
@@ -145,9 +159,18 @@ public:
 
 	void info()const;
 	ostream& print(ostream& os)const override;
-	istream& input(istream& is)override;
+	ofstream& print(ofstream& ofs)const override;
+
+	istream& scan(istream& is)override;
+	ifstream& scan(ifstream& ifs)override;
 };
 /*----------------------------end-class-SeniorLecturer-------------------------*/
+
+
+Human* HumanFactory(const std::string& type);
+void save(Human** group, const int n, const char* filename);
+Human** load(const char* filename, int& n);
+
 
 #endif // !ACADEMY_HPP
 

@@ -17,35 +17,37 @@ int main() {
     ofstream fout("group.txt");
     for (size_t i = 0; i < size(group); i++)
     {
-       
+        fout << typeid(*group[i]).name() << ":\t";
         fout << *group[i] << endl;
     }
     fout.close();
-
-
-
-
-
-    ifstream fin("group.txt");
-    if (!fin.is_open())
-    {
-        cerr << "Error: file not found" << endl;
-        return 0;
-    }
-    
-    for (size_t i = 0; i < size(group); i++)
-    {
-        fin >> *group[i];
-        cout << *group[i] << endl;
-    }
-    fin.close();
-
-
 
     for (int i = 0; i < sizeof(group) / sizeof(Human*); i++)
     {
         delete group[i];
     }
 
+
+
+    
+    int n = 0;
+    Human** group1 = load("group.txt", n);
+    cout << "\n-----------------------------------------\n";
+    for (int i = 0; i < n; i++)
+    {
+        cout << *group1[i] << endl;
+        cout << "\n-----------------------------------------\n";
+    }
+    for (int i = 0; i < n; i++)
+    {
+        delete group1[i];
+    }
+    delete[] group1;
+
+
+
+    
+
+    
     return 0;
 }
