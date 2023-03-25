@@ -1,4 +1,4 @@
-#include"dynamicMemory.hpp"
+ï»¿#include"dynamicMemory.hpp"
 
 
 
@@ -9,7 +9,7 @@ int main() {
     setlocale(LC_ALL, "");
 
     int size, value, pos;
-    cout << "Ââåäèòå äëèííó ìàññèâà" << endl;
+    cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð´Ð»Ð¸Ð½Ð½Ñƒ Ð¼Ð°ÑÑÐ¸Ð²Ð°" << endl;
     cin >> size;
 
     DinamicArray dinArray(size);
@@ -18,7 +18,7 @@ int main() {
 
 
 #ifdef HW_1_1
-    cout << "Ââåäèòå çíà÷åíèå â êîíåö ìàññèâà" << endl;
+    cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ðµ Ð² ÐºÐ¾Ð½ÐµÑ† Ð¼Ð°ÑÑÐ¸Ð²Ð°" << endl;
     cin >> value;
     dinArray.push_back(value);
     cout << dinArray << endl;
@@ -32,7 +32,7 @@ int main() {
 
 
 #ifdef HW_1_2
-    cout << "Ââåäèòå çíà÷åíèå â íà÷àëà ìàññèâà" << endl;
+    cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ðµ Ð² Ð½Ð°Ñ‡Ð°Ð»Ð° Ð¼Ð°ÑÑÐ¸Ð²Ð°" << endl;
     cin >> value;
     dinArray.push_front(value);
     cout << dinArray << endl;
@@ -43,14 +43,14 @@ int main() {
 
 
 #ifdef HW_1_3
-    cout << "Ââåäèòå ïîçèöèèþ ìàññèâà äëÿ âñòàâêè çíà÷åíèÿ" << endl;
+    cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð¿Ð¾Ð·Ð¸Ñ†Ð¸Ð¸ÑŽ Ð¼Ð°ÑÑÐ¸Ð²Ð° Ð´Ð»Ñ Ð²ÑÑ‚Ð°Ð²ÐºÐ¸ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ñ" << endl;
     cin >> pos;
-    cout << "Ââåäèòå çíà÷åíèå äëÿ âñòàâêè åå íà óêàçàííóþ ðàíåå ïîçèöèþ ìàññèâà" << endl;
+    cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ðµ Ð´Ð»Ñ Ð²ÑÑ‚Ð°Ð²ÐºÐ¸ ÐµÐµ Ð½Ð° ÑƒÐºÐ°Ð·Ð°Ð½Ð½ÑƒÑŽ Ñ€Ð°Ð½ÐµÐµ Ð¿Ð¾Ð·Ð¸Ñ†Ð¸ÑŽ Ð¼Ð°ÑÑÐ¸Ð²Ð°" << endl;
     cin >> value;
     dinArray.insert(value, pos);
     cout << dinArray << endl;
 
-    cout << "Ââåäèòå ïîçèöèèþ ìàññèâà äëÿ óäàëåíèÿ çíà÷åíèÿ" << endl;
+    cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð¿Ð¾Ð·Ð¸Ñ†Ð¸Ð¸ÑŽ Ð¼Ð°ÑÑÐ¸Ð²Ð° Ð´Ð»Ñ ÑƒÐ´Ð°Ð»ÐµÐ½Ð¸Ñ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ñ" << endl;
     cin >> pos;
     dinArray.erase(pos);
     cout << dinArray << endl;

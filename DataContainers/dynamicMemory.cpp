@@ -1,4 +1,4 @@
-#include"dynamicMemory.hpp"
+п»ї#include"dynamicMemory.hpp"
 
 int DinamicArray::get_size() const
 {
@@ -10,11 +10,11 @@ int* DinamicArray::get_data() const
 	return data;
 }
 
-//Конструктор класса
+//РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РєР»Р°СЃСЃР°
 DinamicArray::DinamicArray(int size) :size(size), data(new int[size] {})
 {
 }
-//Деструктор класса
+//Р”РµСЃС‚СЂСѓРєС‚РѕСЂ РєР»Р°СЃСЃР°
 DinamicArray::~DinamicArray()
 {
 	size = int();
@@ -24,7 +24,7 @@ DinamicArray::~DinamicArray()
 
 
 
-										/*Методы*/
+										/*РњРµС‚РѕРґС‹*/
 
 void DinamicArray::fillArray()
 {
@@ -34,7 +34,7 @@ void DinamicArray::fillArray()
 	}
 }
 
-//меняет адрес местами
+//РјРµРЅСЏРµС‚ Р°РґСЂРµСЃ РјРµСЃС‚Р°РјРё
 void DinamicArray::swapAdress(int* buffer) {
 	int* holder = buffer;
 	buffer = data;
@@ -44,7 +44,7 @@ void DinamicArray::swapAdress(int* buffer) {
 }
 
 
-//добавляет значение в конец массива
+//РґРѕР±Р°РІР»СЏРµС‚ Р·РЅР°С‡РµРЅРёРµ РІ РєРѕРЅРµС† РјР°СЃСЃРёРІР°
 void DinamicArray::push_back(int value)
 {
 	size++;
@@ -61,7 +61,7 @@ void DinamicArray::push_back(int value)
 	}
 	swapAdress(buffer);
 }
-//удаляет последний элемент массива
+//СѓРґР°Р»СЏРµС‚ РїРѕСЃР»РµРґРЅРёР№ СЌР»РµРјРµРЅС‚ РјР°СЃСЃРёРІР°
 void DinamicArray::pop_back()
 {
 	size--;
@@ -75,7 +75,7 @@ void DinamicArray::pop_back()
 }
 
 
-//добавляет значение в начало массива
+//РґРѕР±Р°РІР»СЏРµС‚ Р·РЅР°С‡РµРЅРёРµ РІ РЅР°С‡Р°Р»Рѕ РјР°СЃСЃРёРІР°
 void DinamicArray::push_front(int value)
 {
 	size++;
@@ -91,7 +91,7 @@ void DinamicArray::push_front(int value)
 	}
 	swapAdress(buffer);
 }
-//удаляет нулевой элемент массива
+//СѓРґР°Р»СЏРµС‚ РЅСѓР»РµРІРѕР№ СЌР»РµРјРµРЅС‚ РјР°СЃСЃРёРІР°
 void DinamicArray::pop_front()
 {
 	size--;
@@ -105,7 +105,7 @@ void DinamicArray::pop_front()
 
 
 
-//добавляет значение в массив по указанному индексу
+//РґРѕР±Р°РІР»СЏРµС‚ Р·РЅР°С‡РµРЅРёРµ РІ РјР°СЃСЃРёРІ РїРѕ СѓРєР°Р·Р°РЅРЅРѕРјСѓ РёРЅРґРµРєСЃСѓ
 void DinamicArray::insert(int value, int pos)
 {
 	size++;
@@ -124,7 +124,7 @@ void DinamicArray::insert(int value, int pos)
 	swapAdress(buffer);
 }
 
-//удаляет элемент из массива по заданному индексу
+//СѓРґР°Р»СЏРµС‚ СЌР»РµРјРµРЅС‚ РёР· РјР°СЃСЃРёРІР° РїРѕ Р·Р°РґР°РЅРЅРѕРјСѓ РёРЅРґРµРєСЃСѓ
 void DinamicArray::erase(int pos)
 {
 	size--;
@@ -139,14 +139,14 @@ void DinamicArray::erase(int pos)
 	}
 	swapAdress(buffer);
 }
-/*Оператор преобразовании типа:*/
+/*РћРїРµСЂР°С‚РѕСЂ РїСЂРµРѕР±СЂР°Р·РѕРІР°РЅРёРё С‚РёРїР°:*/
 DinamicArray::operator int* ()
 {
 	return data;
 }
 
 
-//функция рандома
+//С„СѓРЅРєС†РёСЏ СЂР°РЅРґРѕРјР°
 int MyRandom(int a, int b) {
 
 	static mt19937 gen(random_device{}());
@@ -154,7 +154,7 @@ int MyRandom(int a, int b) {
 	return int(dis(gen));
 }
 
-//Оператор вставки в поток
+//РћРїРµСЂР°С‚РѕСЂ РІСЃС‚Р°РІРєРё РІ РїРѕС‚РѕРє
 ostream& operator<<(ostream& ost, const DinamicArray& obj)
 {
 	for (size_t i = 0; i < obj.get_size(); i++)
@@ -180,7 +180,7 @@ int** DinamicArray2x::get_data() const
 	return data;
 }
 
-//Конструктор класса
+//РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РєР»Р°СЃСЃР°
 
 DinamicArray2x::DinamicArray2x(int rows, int cols)
 	: rows(rows), cols(cols), data(new int* [rows] {})
@@ -191,7 +191,7 @@ DinamicArray2x::DinamicArray2x(int rows, int cols)
 	}
 }
 
-//Деструктор класса
+//Р”РµСЃС‚СЂСѓРєС‚РѕСЂ РєР»Р°СЃСЃР°
 DinamicArray2x::~DinamicArray2x()
 {
 	DinamicArray::~DinamicArray();
