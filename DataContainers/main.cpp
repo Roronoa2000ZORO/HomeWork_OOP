@@ -1,7 +1,7 @@
 ﻿#include"dynamicArray.hpp"
 
 
-//#define HW_1
+#define HW_1
 //#define HW_1_1
 //#define HW_1_2
 //#define HW_1_3
@@ -74,7 +74,7 @@ int main() {
     cout << "Введите количество строк 2D массива" << endl; cin >> rows;
     cout << "Введите количество столбиков 2D массива" << endl; cin >> cols;
 
-    DinamicArray2D DA2d(rows, cols);
+    DinamicArray2D<int> DA2d(rows, cols);
     DA2d.fillArray();
     cout << DA2d;
     cout << delimiter;

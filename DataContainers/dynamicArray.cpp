@@ -3,17 +3,17 @@
 
 /*----------------------------start-class-DinamicArray---------------------------*/
 
-template<typename T>int DinamicArray<T>::get_size() const
+Type int DinamicArray<T>::get_size() const
 {
 	return size;
 }
 
-template<typename T>T* DinamicArray<T>::get_data() const
+Type T* DinamicArray<T>::get_data() const
 {
 	return data;
 }
 
-template<typename T>void DinamicArray<T>::set_size(int size)
+Type void DinamicArray<T>::set_size(int size)
 {
 	if (size < 2) size = 2;
 	this->size = size;
@@ -23,13 +23,13 @@ template<typename T>void DinamicArray<T>::set_size(int size)
 
 
 //Конструктор класса
-template<typename T>DinamicArray<T>::DinamicArray(int size)
+Type DinamicArray<T>::DinamicArray(int size)
 {
 	set_size(size);
 	data = new T[this->size] {};
 }
 //Конструктор копирования
-template<typename T>DinamicArray<T>::DinamicArray(const DinamicArray& other)
+Type DinamicArray<T>::DinamicArray(const DinamicArray& other)
 	: DinamicArray(other.size)
 {
 	for (size_t i = 0; i < size; i++)
@@ -38,13 +38,13 @@ template<typename T>DinamicArray<T>::DinamicArray(const DinamicArray& other)
 	}
 }
 //Конструктор переноса
-template<typename T>DinamicArray<T>::DinamicArray(DinamicArray&& other) noexcept
+Type DinamicArray<T>::DinamicArray(DinamicArray&& other) noexcept
 	: size(other.size), data(other.data)
 {
 	other.data = nullptr;
 }
 //Деструктор класса
-template<typename T>DinamicArray<T>::~DinamicArray()
+Type DinamicArray<T>::~DinamicArray()
 {
 	size = T();
 	delete[] data;
@@ -56,7 +56,7 @@ template<typename T>DinamicArray<T>::~DinamicArray()
 										/*Методы*/
 
 //Заполнение массива
-template<typename T>void DinamicArray<T>::fillArray()
+Type void DinamicArray<T>::fillArray()
 {
 	for (size_t i = 0; i < size; i++)
 	{
@@ -65,7 +65,7 @@ template<typename T>void DinamicArray<T>::fillArray()
 }
 
 //меняет адрес местами
-template<typename T>void DinamicArray<T>::assignAdress(T* buffer) {
+Type void DinamicArray<T>::assignAdress(T* buffer) {
 	delete[] data;
 	data = buffer;
 	buffer = nullptr;
@@ -73,7 +73,7 @@ template<typename T>void DinamicArray<T>::assignAdress(T* buffer) {
 
 
 //добавляет значение в конец массива
-template<typename T>void DinamicArray<T>::push_back(T value)
+Type void DinamicArray<T>::push_back(T value)
 {
 	size++;
 	int* buffer = new T[size]{};
@@ -86,7 +86,7 @@ template<typename T>void DinamicArray<T>::push_back(T value)
 	assignAdress(buffer);
 }
 //удаляет последний элемент массива
-template<typename T>void DinamicArray<T>::pop_back()
+Type void DinamicArray<T>::pop_back()
 {
 	size--;
 	int* buffer = new T[size]{};
@@ -100,7 +100,7 @@ template<typename T>void DinamicArray<T>::pop_back()
 
 
 //добавляет значение в начало массива
-template<typename T>void DinamicArray<T>::push_front(T value)
+Type void DinamicArray<T>::push_front(T value)
 {
 	size++;
 	int* buffer = new T[size] {};
@@ -113,7 +113,7 @@ template<typename T>void DinamicArray<T>::push_front(T value)
 	assignAdress(buffer);
 }
 //удаляет нулевой элемент массива
-template<typename T>void DinamicArray<T>::pop_front()
+Type void DinamicArray<T>::pop_front()
 {
 	size--;
 	int* buffer = new T[size] {};
@@ -127,7 +127,7 @@ template<typename T>void DinamicArray<T>::pop_front()
 
 
 //добавляет значение в массив по указанному индексу
-template<typename T>void DinamicArray<T>::insert(int pos, T value)
+Type void DinamicArray<T>::insert(int pos, T value)
 {
 	size++;
 	int* buffer = new T[size] {};
@@ -145,7 +145,7 @@ template<typename T>void DinamicArray<T>::insert(int pos, T value)
 }
 
 //удаляет элемент из массива по заданному индексу
-template<typename T>void DinamicArray<T>::erase(int pos)
+Type void DinamicArray<T>::erase(int pos)
 {
 	size--;
 	int* buffer = new T[size] {};
@@ -164,7 +164,7 @@ template<typename T>void DinamicArray<T>::erase(int pos)
 									/*Перегрузка операторов*/
 
 //Оператор присваивания
-template<typename T>DinamicArray<T>& DinamicArray<T>::operator=(const DinamicArray& other)
+Type DinamicArray<T>& DinamicArray<T>::operator=(const DinamicArray& other)
 {
 	if (this == &other) return *this;
 	delete[] data;
@@ -178,7 +178,7 @@ template<typename T>DinamicArray<T>& DinamicArray<T>::operator=(const DinamicArr
 	return *this;
 }
 //Оператор переноса
-template<typename T>DinamicArray<T>& DinamicArray<T>::operator=(DinamicArray&& other) noexcept
+Type DinamicArray<T>& DinamicArray<T>::operator=(DinamicArray&& other) noexcept
 {
 	if (this == &other) return *this;
 	delete[] data;
@@ -195,7 +195,7 @@ template<typename T>DinamicArray<T>& DinamicArray<T>::operator=(DinamicArray&& o
 /*------------------------------end-class-DinamicArray---------------------------*/
 
 //функция рандома
-template<typename T>T MyRandom(T a, T b) {
+Type T MyRandom(T a, T b) {
 
 	static mt19937 gen(random_device{}());
 	uniform_real_distribution<> dis(a, b);
@@ -203,7 +203,7 @@ template<typename T>T MyRandom(T a, T b) {
 }
 
 //Оператор вставки в поток
-template<typename T>ostream& operator<<(ostream& ost, const DinamicArray<T>& obj)
+Type ostream& operator<<(ostream& ost, const DinamicArray<T>& obj)
 {
 	for (size_t i = 0; i < obj.get_size(); i++)
 	{
@@ -216,28 +216,28 @@ template<typename T>ostream& operator<<(ostream& ost, const DinamicArray<T>& obj
 
 
 
-template<typename T>int DinamicArray2D<T>::get_rows() const
+Type int DinamicArray2D<T>::get_rows() const
 {
 	return rows;
 }
 
-template<typename T>int DinamicArray2D<T>::get_cols() const
+Type int DinamicArray2D<T>::get_cols() const
 {
 	return cols;
 }
 
-template<typename T>T** DinamicArray2D<T>::get_data() const
+Type T** DinamicArray2D<T>::get_data() const
 {
 	return data;
 }
 
-template<typename T>void DinamicArray2D<T>::set_rows(int rows)
+Type void DinamicArray2D<T>::set_rows(int rows)
 {
 	if (rows < 2)rows = 2;
 	this->rows = rows;
 }
 
-template<typename T>void DinamicArray2D<T>::set_cols(int cols)
+Type void DinamicArray2D<T>::set_cols(int cols)
 {
 	if (cols < 2)cols = 2;
 	this->cols = cols;
@@ -245,7 +245,7 @@ template<typename T>void DinamicArray2D<T>::set_cols(int cols)
 
 
 //Конструктор класса
-template<typename T>DinamicArray2D<T>::DinamicArray2D(int rows, int cols)
+Type DinamicArray2D<T>::DinamicArray2D(int rows, int cols)
 {
 	set_rows(rows);
 	set_cols(cols);
@@ -257,7 +257,7 @@ template<typename T>DinamicArray2D<T>::DinamicArray2D(int rows, int cols)
 }
 
 //Конструктор копирования
-template<typename T>DinamicArray2D<T>::DinamicArray2D(const DinamicArray2D& other)
+Type DinamicArray2D<T>::DinamicArray2D(const DinamicArray2D& other)
 	:DinamicArray2D(other.rows, other.cols)
 {
 	for (size_t i = 0; i < rows; i++)
@@ -270,7 +270,7 @@ template<typename T>DinamicArray2D<T>::DinamicArray2D(const DinamicArray2D& othe
 }
 
 //Конструктор переноса
-template<typename T>DinamicArray2D<T>::DinamicArray2D(DinamicArray2D&& other) noexcept
+Type DinamicArray2D<T>::DinamicArray2D(DinamicArray2D&& other) noexcept
 	:rows(other.rows), cols(other.cols), data(other.data)
 {
 	for (size_t i = 0; i < rows; i++)
@@ -281,7 +281,7 @@ template<typename T>DinamicArray2D<T>::DinamicArray2D(DinamicArray2D&& other) no
 }
 
 //Деструктор класса
-template<typename T>DinamicArray2D<T>::~DinamicArray2D()
+Type DinamicArray2D<T>::~DinamicArray2D()
 {
 	
 	for (size_t i = 0; i < rows; i++)
@@ -296,7 +296,7 @@ template<typename T>DinamicArray2D<T>::~DinamicArray2D()
 }
 
 //Заполнение массива
-template<typename T>void DinamicArray2D<T>::fillArray()
+Type void DinamicArray2D<T>::fillArray()
 {
 	for (size_t i = 0; i < rows; i++)
 	{
@@ -308,7 +308,7 @@ template<typename T>void DinamicArray2D<T>::fillArray()
 }
 
 //добавляет пустую строку в конец ДДМ
-template<typename T>void DinamicArray2D<T>::push_row_back()
+Type void DinamicArray2D<T>::push_row_back()
 {
 	rows++;
 	T** buffer = new T*[rows] {};
@@ -323,7 +323,7 @@ template<typename T>void DinamicArray2D<T>::push_row_back()
 	buffer = nullptr;
 }
 //удаляет последнюю строку из ДДМ
-template<typename T>void DinamicArray2D<T>::pop_row_back()
+Type void DinamicArray2D<T>::pop_row_back()
 {
 	rows--;
 	T** buffer = new T* [rows] {};
@@ -340,7 +340,7 @@ template<typename T>void DinamicArray2D<T>::pop_row_back()
 
 
 //добавляет пустую строку в начало ДДМ
-template<typename T>void DinamicArray2D<T>::push_row_front()
+Type void DinamicArray2D<T>::push_row_front()
 {
 	rows++;
 	T** buffer = new T* [rows] {};
@@ -354,7 +354,7 @@ template<typename T>void DinamicArray2D<T>::push_row_front()
 	buffer = nullptr;
 }
 //удаляет нулевую строку из ДДМ
-template<typename T>void DinamicArray2D<T>::pop_row_front()
+Type void DinamicArray2D<T>::pop_row_front()
 {
 	rows--;
 	T** buffer = new T* [rows] {};
@@ -371,7 +371,7 @@ template<typename T>void DinamicArray2D<T>::pop_row_front()
 
 
 //вставляет пустую строку в ДДМ по заданному индексу
-template<typename T>void DinamicArray2D<T>::insert_row(int pos)
+Type void DinamicArray2D<T>::insert_row(int pos)
 {
 	rows++;
 	T** buffer = new T* [rows] {};
@@ -390,7 +390,7 @@ template<typename T>void DinamicArray2D<T>::insert_row(int pos)
 	buffer = nullptr;
 }
 //удаляет строку из ДДМ по заданному индексу
-template<typename T>void DinamicArray2D<T>::erase_row(int pos)
+Type void DinamicArray2D<T>::erase_row(int pos)
 {
 	rows--;
 	T** buffer = new T* [rows] {};
@@ -410,7 +410,7 @@ template<typename T>void DinamicArray2D<T>::erase_row(int pos)
 
 
 //добавляет пустой столбец в конец ДДМ
-template<typename T>void DinamicArray2D<T>::push_col_back()
+Type void DinamicArray2D<T>::push_col_back()
 {
 	cols++;
 
@@ -425,7 +425,7 @@ template<typename T>void DinamicArray2D<T>::push_col_back()
 	}
 }
 //удаляет последний столбец из ДДМ
-template<typename T>void DinamicArray2D<T>::pop_col_back()
+Type void DinamicArray2D<T>::pop_col_back()
 {
 	cols--;
 
@@ -442,7 +442,7 @@ template<typename T>void DinamicArray2D<T>::pop_col_back()
 
 
 //добавляет пустой столбец в начало ДДМ
-template<typename T>void DinamicArray2D<T>::push_col_front()
+Type void DinamicArray2D<T>::push_col_front()
 {
 	cols++;
 
@@ -457,7 +457,7 @@ template<typename T>void DinamicArray2D<T>::push_col_front()
 	}
 }
 //удаляет нулевой столбец из ДДМ
-template<typename T>void DinamicArray2D<T>::pop_col_front()
+Type void DinamicArray2D<T>::pop_col_front()
 {
 	cols--;
 
@@ -473,7 +473,7 @@ template<typename T>void DinamicArray2D<T>::pop_col_front()
 }
 
 //вставляет пустой столбец в ДДМ по заданному индексу
-template<typename T>void DinamicArray2D<T>::insert_col(int pos)
+Type void DinamicArray2D<T>::insert_col(int pos)
 {
 	cols++;
 
@@ -493,7 +493,7 @@ template<typename T>void DinamicArray2D<T>::insert_col(int pos)
 	}
 }
 //удаляет столбец из ДДМ по заданному индексу
-template<typename T>void DinamicArray2D<T>::erase_col(int pos)
+Type void DinamicArray2D<T>::erase_col(int pos)
 {
 	cols--;
 
@@ -515,7 +515,7 @@ template<typename T>void DinamicArray2D<T>::erase_col(int pos)
 								/*Перегрузка операторов*/
 
 //Оператор присваивания
-template<typename T>DinamicArray2D<T>& DinamicArray2D<T>::operator=(const DinamicArray2D& other)
+Type DinamicArray2D<T>& DinamicArray2D<T>::operator=(const DinamicArray2D& other)
 {
 	if (this == &other) return *this;
 	for (size_t i = 0; i < rows; i++)
@@ -540,7 +540,7 @@ template<typename T>DinamicArray2D<T>& DinamicArray2D<T>::operator=(const Dinami
 	return *this;
 }
 //Оператор переноса
-template<typename T>DinamicArray2D<T>& DinamicArray2D<T>::operator=(DinamicArray2D&& other)
+Type DinamicArray2D<T>& DinamicArray2D<T>::operator=(DinamicArray2D&& other)
 {
 	if (this == &other) return *this;
 	for (size_t i = 0; i < rows; i++)
@@ -565,7 +565,7 @@ template<typename T>DinamicArray2D<T>& DinamicArray2D<T>::operator=(DinamicArray
 /*------------------------------end-class-DinamicArray2D-------------------------*/
 
 //Оператор вставки в поток для двумерного массива
-template<typename T>ostream& operator<<(ostream& ost, const DinamicArray2D<T>& obj)
+Type ostream& operator<<(ostream& ost, const DinamicArray2D<T>& obj)
 {
 	for (size_t i = 0; i < obj.get_rows(); i++)
 	{

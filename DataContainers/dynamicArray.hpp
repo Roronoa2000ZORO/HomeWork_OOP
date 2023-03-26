@@ -8,12 +8,11 @@ using namespace std;
 using std::cout;
 using std::cin;
 
-
+#define Type template<typename T>
 
 /*----------------------------start-class-DinamicArray---------------------------*/
 
-template<typename T>
-class DinamicArray
+Type class DinamicArray
 {
 private:
     int size;
@@ -72,17 +71,16 @@ public:
 /*------------------------------end-class-DinamicArray---------------------------*/
 
 //функция рандома
-template<typename T>T MyRandom(T a, T b);
+Type T MyRandom(T a, T b);
 
 //Оператор вставки в поток
-template<typename T>ostream& operator<<(ostream& ost, const DinamicArray<T>& obj);
+Type ostream& operator<<(ostream& ost, const DinamicArray<T>& obj);
 
 
 #define delimiter "\n--------------------------------------------------------------\n"
 /*----------------------------start-class-DinamicArray2D-------------------------*/
 
-template<typename T>
-class DinamicArray2D
+Type class DinamicArray2D
 {
 private:
     int rows;
@@ -155,7 +153,7 @@ public:
 /*------------------------------end-class-DinamicArray2D-------------------------*/
 
 //Оператор вставки в поток для двумерного массива
-template<typename T>ostream& operator<<(ostream& ost, const DinamicArray2D<T>& obj);
+Type ostream& operator<<(ostream& ost, const DinamicArray2D<T>& obj);
 
 
 #endif // !DYNAMICARRAY_HPP
