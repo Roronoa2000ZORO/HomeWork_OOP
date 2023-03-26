@@ -1,4 +1,4 @@
-#ifndef GEOMETRY_HPP
+﻿#ifndef GEOMETRY_HPP
 #define GEOMETRY_HPP
 
 #include<Windows.h>

@@ -1,11 +1,11 @@
-#include"Geometry.hpp"
+ï»¿#include"Geometry.hpp"
 
 /*----------------------------start-class-Shape----------------------------*/
 
 ostream& Shape::print(ostream& ost) const
 {
-    ost << "Ïëîùàäü ôèãóðû: " << get_area() << endl;
-    ost << "Ïåðèìåòð ôèãóðû: " << get_perimeter() << endl;
+    ost << "ÐŸÐ»Ð¾Ñ‰Ð°Ð´ÑŒ Ñ„Ð¸Ð³ÑƒÑ€Ñ‹: " << get_area() << endl;
+    ost << "ÐŸÐµÑ€Ð¸Ð¼ÐµÑ‚Ñ€ Ñ„Ð¸Ð³ÑƒÑ€Ñ‹: " << get_perimeter() << endl;
     draw();
     return ost;
 }
@@ -66,7 +66,7 @@ void Square::draw() const
 ostream& Square::print(ostream& ost) const
 {
     ost << typeid(*this).name() << endl;
-    ost << "Äëèííà ñòîðîíû êâàäðàòà" << side << endl;
+    ost << "Ð”Ð»Ð¸Ð½Ð½Ð° ÑÑ‚Ð¾Ñ€Ð¾Ð½Ñ‹ ÐºÐ²Ð°Ð´Ñ€Ð°Ñ‚Ð°" << side << endl;
     Shape::print(ost);
     return ost;
 }
