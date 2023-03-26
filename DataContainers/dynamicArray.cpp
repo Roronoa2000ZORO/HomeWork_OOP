@@ -23,13 +23,13 @@ Type void DinamicArray<T>::set_size(int size)
 
 
 //Конструктор класса
-Type DinamicArray<T>::DinamicArray(int size)
+template<typename T>DinamicArray<T>::DinamicArray(int size)
 {
 	set_size(size);
 	data = new T[this->size] {};
 }
 //Конструктор копирования
-Type DinamicArray<T>::DinamicArray(const DinamicArray& other)
+template<typename T>DinamicArray<T>::DinamicArray(const DinamicArray& other)
 	: DinamicArray(other.size)
 {
 	for (size_t i = 0; i < size; i++)
@@ -38,13 +38,13 @@ Type DinamicArray<T>::DinamicArray(const DinamicArray& other)
 	}
 }
 //Конструктор переноса
-Type DinamicArray<T>::DinamicArray(DinamicArray&& other) noexcept
+template<typename T>DinamicArray<T>::DinamicArray(DinamicArray&& other) noexcept
 	: size(other.size), data(other.data)
 {
 	other.data = nullptr;
 }
 //Деструктор класса
-Type DinamicArray<T>::~DinamicArray()
+template<typename T>DinamicArray<T>::~DinamicArray()
 {
 	size = T();
 	delete[] data;
@@ -245,7 +245,7 @@ Type void DinamicArray2D<T>::set_cols(int cols)
 
 
 //Конструктор класса
-Type DinamicArray2D<T>::DinamicArray2D(int rows, int cols)
+template<typename T>DinamicArray2D<T>::DinamicArray2D(int rows, int cols)
 {
 	set_rows(rows);
 	set_cols(cols);
@@ -257,7 +257,7 @@ Type DinamicArray2D<T>::DinamicArray2D(int rows, int cols)
 }
 
 //Конструктор копирования
-Type DinamicArray2D<T>::DinamicArray2D(const DinamicArray2D& other)
+template<typename T>DinamicArray2D<T>::DinamicArray2D(const DinamicArray2D& other)
 	:DinamicArray2D(other.rows, other.cols)
 {
 	for (size_t i = 0; i < rows; i++)
@@ -270,7 +270,7 @@ Type DinamicArray2D<T>::DinamicArray2D(const DinamicArray2D& other)
 }
 
 //Конструктор переноса
-Type DinamicArray2D<T>::DinamicArray2D(DinamicArray2D&& other) noexcept
+template<typename T>DinamicArray2D<T>::DinamicArray2D(DinamicArray2D&& other) noexcept
 	:rows(other.rows), cols(other.cols), data(other.data)
 {
 	for (size_t i = 0; i < rows; i++)
@@ -281,7 +281,7 @@ Type DinamicArray2D<T>::DinamicArray2D(DinamicArray2D&& other) noexcept
 }
 
 //Деструктор класса
-Type DinamicArray2D<T>::~DinamicArray2D()
+template<typename T>DinamicArray2D<T>::~DinamicArray2D()
 {
 	
 	for (size_t i = 0; i < rows; i++)
