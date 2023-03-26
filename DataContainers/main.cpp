@@ -21,7 +21,7 @@ int main() {
     cout << "Введите длинну массива" << endl;
     cin >> size;
 
-    DinamicArray dinArray(size);
+    DinamicArray<int> dinArray(size);
     dinArray.fillArray();
     cout << dinArray << endl;
 

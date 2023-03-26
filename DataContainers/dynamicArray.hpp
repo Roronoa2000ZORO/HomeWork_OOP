@@ -12,14 +12,15 @@ using std::cin;
 
 /*----------------------------start-class-DinamicArray---------------------------*/
 
+template<typename T>
 class DinamicArray
 {
 private:
     int size;
-    int* data;
+    T* data;
 public:
     int get_size()const;
-    int* get_data()const;
+    T* get_data()const;
 
     void set_size(int size);
 
@@ -41,20 +42,20 @@ public:
     void fillArray();
 
     //меняет адрес местами
-    void assignAdress(int* buffer);
+    void assignAdress(T* buffer);
 
     //добавляет значение в конец массива
-    void push_back(int value = int());
+    void push_back(T value = T());
     //удаляет последний элемент массива
     void pop_back();
 
     //добавляет значение в начало массива
-    void push_front(int value = int());
+    void push_front(T value = T());
     //удаляет нулевой элемент массива
     void pop_front();
 
     //добавляет значение в массив по указанному индексу
-    void insert(int pos, int value = int());
+    void insert(int pos, T value = T());
     //удаляет элемент из массива по заданному индексу
     void erase(int pos);
 
@@ -71,25 +72,26 @@ public:
 /*------------------------------end-class-DinamicArray---------------------------*/
 
 //функция рандома
-int MyRandom(int a, int b);
+template<typename T>T MyRandom(T a, T b);
 
 //Оператор вставки в поток
-ostream& operator<<(ostream& ost, const DinamicArray& obj);
+template<typename T>ostream& operator<<(ostream& ost, const DinamicArray<T>& obj);
 
 
 #define delimiter "\n--------------------------------------------------------------\n"
 /*----------------------------start-class-DinamicArray2D-------------------------*/
 
+template<typename T>
 class DinamicArray2D
 {
 private:
     int rows;
     int cols;
-    int** data;
+    T** data;
 public:
     int get_rows()const;
     int get_cols()const;
-    int** get_data()const;
+    T** get_data()const;
 
     void set_rows(int rows);
     void set_cols(int cols);
@@ -146,14 +148,14 @@ public:
     //Оператор присваивания
     DinamicArray2D& operator=(const DinamicArray2D& other);
     //Оператор переноса
-    DinamicArray2D& operator=(DinamicArray2D&& other) noexcept;
+    DinamicArray2D& operator=(DinamicArray2D&& other);
 };
 
 
 /*------------------------------end-class-DinamicArray2D-------------------------*/
 
 //Оператор вставки в поток для двумерного массива
-ostream& operator<<(ostream& ost, const DinamicArray2D& obj);
+template<typename T>ostream& operator<<(ostream& ost, const DinamicArray2D<T>& obj);
 
 
 #endif // !DYNAMICARRAY_HPP
