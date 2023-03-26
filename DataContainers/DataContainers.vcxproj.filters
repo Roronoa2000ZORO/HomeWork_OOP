@@ -18,12 +18,12 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="dynamicMemory.cpp">
+    <ClCompile Include="dynamicArray.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="dynamicMemory.hpp">
+    <ClInclude Include="dynamicArray.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
