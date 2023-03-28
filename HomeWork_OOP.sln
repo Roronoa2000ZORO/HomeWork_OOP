@@ -17,6 +17,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DataContainers_HW", "DataCo
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AbstractGeometry", "AbstractGeometry\AbstractGeometry.vcxproj", "{9B643ECD-0947-495B-82E8-7454DE2EB463}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ForwardList_HW", "ForwardList\ForwardList.vcxproj", "{A694F08C-94BF-47AD-88E7-49770381221A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -81,6 +83,14 @@ Global
 		{9B643ECD-0947-495B-82E8-7454DE2EB463}.Release|x64.Build.0 = Release|x64
 		{9B643ECD-0947-495B-82E8-7454DE2EB463}.Release|x86.ActiveCfg = Release|Win32
 		{9B643ECD-0947-495B-82E8-7454DE2EB463}.Release|x86.Build.0 = Release|Win32
+		{A694F08C-94BF-47AD-88E7-49770381221A}.Debug|x64.ActiveCfg = Debug|x64
+		{A694F08C-94BF-47AD-88E7-49770381221A}.Debug|x64.Build.0 = Debug|x64
+		{A694F08C-94BF-47AD-88E7-49770381221A}.Debug|x86.ActiveCfg = Debug|Win32
+		{A694F08C-94BF-47AD-88E7-49770381221A}.Debug|x86.Build.0 = Debug|Win32
+		{A694F08C-94BF-47AD-88E7-49770381221A}.Release|x64.ActiveCfg = Release|x64
+		{A694F08C-94BF-47AD-88E7-49770381221A}.Release|x64.Build.0 = Release|x64
+		{A694F08C-94BF-47AD-88E7-49770381221A}.Release|x86.ActiveCfg = Release|Win32
+		{A694F08C-94BF-47AD-88E7-49770381221A}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
