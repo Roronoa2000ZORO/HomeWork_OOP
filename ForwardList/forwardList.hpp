@@ -1,4 +1,4 @@
-#ifndef FORWARDLIST_HPP
+п»ї#ifndef FORWARDLIST_HPP
 #define FORWARDLIST_HPP
 
 
@@ -14,9 +14,9 @@ private:
     Element* pNext;
 public:
 
-    //Конструктор
+    //РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ
     Element(int Data, Element* pNext = nullptr);
-    //Деструктор
+    //Р”РµСЃС‚СЂСѓРєС‚РѕСЂ
     ~Element();
     friend class ForwardList;
 };
@@ -27,19 +27,19 @@ class ForwardList
 private:
     Element* Head;
 public:
-    //Конструктор
+    //РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ
     ForwardList();
-    //Деструктор
+    //Р”РµСЃС‚СЂСѓРєС‚РѕСЂ
     ~ForwardList();
 
-    //добавляет значение в начало списка
+    //РґРѕР±Р°РІР»СЏРµС‚ Р·РЅР°С‡РµРЅРёРµ РІ РЅР°С‡Р°Р»Рѕ СЃРїРёСЃРєР°
     void push_front(int Data);
-    //удаляет начальное значение списка
+    //СѓРґР°Р»СЏРµС‚ РЅР°С‡Р°Р»СЊРЅРѕРµ Р·РЅР°С‡РµРЅРёРµ СЃРїРёСЃРєР°
     void pop_front();
 
-    //добавляет значение в конец списка
+    //РґРѕР±Р°РІР»СЏРµС‚ Р·РЅР°С‡РµРЅРёРµ РІ РєРѕРЅРµС† СЃРїРёСЃРєР°
     void push_back(int Data);
-    //удаляет последнее значение списка
+    //СѓРґР°Р»СЏРµС‚ РїРѕСЃР»РµРґРЅРµРµ Р·РЅР°С‡РµРЅРёРµ СЃРїРёСЃРєР°
     void pop_back();
 
     void print()const;
