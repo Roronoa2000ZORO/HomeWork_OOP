@@ -23,7 +23,7 @@ Type void DinamicArray<T>::set_size(int size)
 
 
 //Конструктор класса
-template<typename T>DinamicArray<T>::DinamicArray(int size)
+template<typename T> DinamicArray<T>::DinamicArray(int size)
 {
 	set_size(size);
 	data = new T[this->size] {};

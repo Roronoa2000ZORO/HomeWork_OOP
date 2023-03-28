@@ -1,4 +1,4 @@
-﻿#include"dynamicArray.hpp"
+﻿#include"dynamicArray.cpp"
 
 
 #define HW_1
@@ -21,7 +21,7 @@ int main() {
     cout << "Введите длинну массива" << endl;
     cin >> size;
 
-    DinamicArray<int> dinArray(size);
+    DinamicArray<double> dinArray(size);
     dinArray.fillArray();
     cout << dinArray << endl;
 
