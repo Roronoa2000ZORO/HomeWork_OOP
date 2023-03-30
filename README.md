@@ -2,8 +2,8 @@
 TOREAD:
 
 
-https://en.cppreference.com/w
-https://drive.google.com/drive/folders/1mIhAKMp5-Jpy6s5X8u924tRCXFEdHE_z?usp=sharing
+1) https://en.cppreference.com/w
+2) https://drive.google.com/drive/folders/1mIhAKMp5-Jpy6s5X8u924tRCXFEdHE_z?usp=sharing
 
 
 TODO:
