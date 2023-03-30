@@ -1,5 +1,6 @@
 ﻿#include"Geometry.hpp"
 
+
 /*----------------------------start-class-Shape----------------------------*/
 
 ostream& Shape::print(ostream& ost) const
@@ -66,7 +67,7 @@ void Square::draw() const
 ostream& Square::print(ostream& ost) const
 {
     ost << typeid(*this).name() << endl;
-    ost << "Длинна стороны квадрата" << side << endl;
+    ost << "Длинна стороны квадрата " << side << endl;
     Shape::print(ost);
     return ost;
 }
@@ -93,4 +94,117 @@ void Rectangle::set_width(double width)
     if (width < 3)width = 3;
     if (width > 30) width = 30;
     this->width = width;
+}
+
+Rectangle::Rectangle(double width, double length)
+{
+    set_width(width);
+    set_length(length);
+}
+
+Rectangle::~Rectangle()
+{
+}
+
+double Rectangle::get_area() const
+{
+    return length * width;
+}
+
+double Rectangle::get_perimeter() const
+{
+    return (length + width) * 2;
+}
+
+void Rectangle::draw() const
+{
+    for (size_t i = 0; i < width; i++)
+    {
+        for (size_t j = 0; j < length; j++)
+        {
+            cout << "* ";
+        }
+        cout << endl;
+    }
+}
+
+ostream& Rectangle::print(ostream& ost) const
+{
+    ost << typeid(*this).name() << endl;
+    ost << "Длинна прямоугольника " << length << endl;
+    ost << "Ширина прямоугольника " << width << endl;
+    Shape::print(ost);
+    return ost;
+}
+
+
+double Circle::get_diameter() const
+{
+    return diameter;
+}
+
+double Circle::get_radius() const
+{
+    return radius;
+}
+
+void Circle::set_diameter(double diameter)
+{
+    if (diameter < 10)this->diameter = 10;
+    this->diameter = diameter;
+    radius = diameter / 2;
+}
+
+void Circle::set_radius(double radius)
+{
+    if (radius < 5)radius = 5;
+    this->radius = radius;
+    diameter = radius * 2;
+}
+
+Circle::Circle(double diameter)
+{
+    set_diameter(diameter);
+}
+
+Circle::~Circle()
+{
+}
+
+double Circle::get_area() const
+{
+    return M_PI * (radius * radius);
+}
+
+double Circle::get_perimeter() const
+{
+    return 2 * M_PI * radius;
+}
+
+void Circle::draw() const
+{
+    for (int y = diameter - radius; y <= diameter + radius; y++)
+    {
+        for (int x = diameter - radius; x <= diameter + radius; x++)
+        {
+            if (std::sqrt((x - diameter) * (x - diameter) + (y - diameter) * (y - diameter)) <= radius)
+            {
+                cout << "* ";
+            }
+            else
+            {
+                cout << "  ";
+            }
+        }
+        cout << endl;
+    }
+}
+
+ostream& Circle::print(ostream& ost) const
+{
+    ost << typeid(*this).name() << endl;
+    ost << "Диаметр круга " << diameter << endl;
+    ost << "Радиус круга " << radius << endl;
+    Shape::print(ost);
+    return ost;
 }

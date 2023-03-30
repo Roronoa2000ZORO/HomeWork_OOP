@@ -1,8 +1,10 @@
 ﻿#ifndef GEOMETRY_HPP
 #define GEOMETRY_HPP
+#define _USE_MATH_DEFINES
 
-#include<Windows.h>
+//#include<Windows.h>
 #include<iostream>
+#include <cmath>
 
 using namespace std;
 
@@ -46,7 +48,7 @@ public:
 /*------------------------------end-class-Square------------------------------*/
 
 
-/*----------------------------start-class-Square----------------------------*/
+/*----------------------------start-class-Rectangle----------------------------*/
 class Rectangle : public Shape 
 {
 private:
@@ -59,7 +61,43 @@ public:
     void set_length(double length);
     void set_width(double width);
 
+
+    Rectangle(double width, double length);
+    ~Rectangle();
+
+    double get_area()const override;
+    double get_perimeter()const override;
+    void draw()const override;
+
+    ostream& print(ostream& ost)const override;
 };
+/*------------------------------end-class-Rectangle------------------------------*/
+
+
+/*----------------------------start-class-Circle----------------------------*/
+class Circle : public Shape
+{
+private:
+    double diameter;
+    double radius;
+public:
+    double get_diameter()const;
+    double get_radius()const;
+
+    void set_diameter(double diameter);
+    void set_radius(double radius);
+
+    Circle(double diameter);
+    ~Circle();
+
+    double get_area()const override;
+    double get_perimeter()const override;
+    void draw()const override;
+
+    ostream& print(ostream& ost)const override;
+};
+
+/*------------------------------end-class-Circle------------------------------*/
 
 
 #endif // !GEOMETRY_HPP
