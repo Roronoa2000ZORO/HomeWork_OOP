@@ -12,10 +12,12 @@ class Element
 private:
     int Data;
     Element* pNext;
+    static int count;
 public:
 
     //Конструктор
     Element(int Data, Element* pNext = nullptr);
+    Element(Element* New);
     //Деструктор
     ~Element();
     friend class ForwardList;
@@ -26,9 +28,11 @@ class ForwardList
 {
 private:
     Element* Head;
+    size_t size;
 public:
     //Конструктор
     ForwardList();
+    ForwardList(Element* New, int Data);
     //Деструктор
     ~ForwardList();
 
@@ -41,6 +45,10 @@ public:
     void push_back(int Data);
     //удаляет последнее значение списка
     void pop_back();
+
+    void insert(int Data, int pos);
+
+    void erase(int pos);
 
     void print()const;
 };
