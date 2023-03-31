@@ -14,27 +14,71 @@ Element::Element(int Data, Element* pNext)
 Element::~Element()
 {
     count--;
-    pNext = nullptr;
     cout << "EDestructor:\t" << this << endl;
 }
 /*------------------------------end-class-Element---------------------------*/
 
 /*----------------------------start-class-ForwardList---------------------------*/
 
-//Конструктор
-ForwardList::ForwardList():Head(nullptr)
+size_t ForwardList::get_size() const
 {
-    size = 0;
+    return size;
+}
+
+Element* ForwardList::get_Head() const
+{
+    return Head;
+}
+
+Element* ForwardList::get_Head_pNext() const
+{
+    return Head->pNext;
+}
+
+int ForwardList::get_Head_Data() const
+{
+    return Head->Data;
+}
+
+void ForwardList::set_Head(Element* pNext)
+{
+    Head = pNext;
+}
+
+//Конструктор
+ForwardList::ForwardList(size_t size):Head(nullptr), size(size)
+{
     cout << "LConstructor:\t" << this << endl;
 }
-ForwardList::ForwardList(Element* New, int Data)
+//Конструктор копирования
+ForwardList::ForwardList(ForwardList& other) : ForwardList(other.size)
 {
-    New = new Element(Data);
+    Element* Temp = other.Head;
 
+    while (Temp)
+    {
+        push_back(Temp->Data);
+        Temp = Temp->pNext;
+    }
 }
+//Конструктор переноса
+ForwardList::ForwardList(ForwardList&& other) noexcept
+    :size(other.size), Head(other.Head)
+{
+    other.Head = nullptr;
+}
+
+
 //Деструктор
 ForwardList::~ForwardList()
 {
+    Element* Temp = Head;
+    while (Temp)
+    {
+        Element* tmp = Temp->pNext;
+        delete Temp;
+        Temp = tmp;
+    }
     cout << "LDestructor:\t" << this << endl;
 }
 
@@ -94,11 +138,7 @@ void ForwardList::pop_back()
     if (Head == nullptr) return;
 
     //2) Если в списке один элемент, удаляем его
-    if (Head->pNext == nullptr) 
-    {
-        delete Head;
-        Head = nullptr;
-    }
+    if (Head->pNext == nullptr) pop_front();
     // В ином случаее
     else
     {
@@ -136,6 +176,24 @@ void ForwardList::insert(int Data, int pos)
 
 void ForwardList::erase(int pos)
 {
+    //1) Если список пустой, то ничего не делаем
+    if (Head == nullptr) return;
+
+    //2) Если в списке один элемент, удаляем его
+    if (Head->pNext == nullptr) pop_front();
+    else
+    {
+        //2) Доходим до нужного элемента
+        Element* Temp = Head;
+        for (size_t i = 0; i < pos - 1; i++)Temp = Temp->pNext;
+
+        //3) удаляем элемент в нужной позициии
+
+        Element* tmp = Temp->pNext->pNext;
+        delete Temp->pNext;
+        Temp->pNext = tmp;
+        size--;
+    }
 }
 
 
@@ -150,13 +208,86 @@ void ForwardList::print() const
         cout << Temp << "\t" << Temp->Data << "\t" << Temp->pNext << endl;
         Temp = Temp->pNext;
     }*/
-    for (Element* Temp = Head; Temp; Temp->pNext)//////////////////////////////////////////
+    for (Element* Temp = Head; Temp; Temp = Temp->pNext)
     {
         cout << Temp << "\t" << Temp->Data << "\t" << Temp->pNext << endl;
     }
     cout << "Количество элементов списка: " << size  << endl;
-    cout << "Количество элементов списка: " << Element::count  << endl;
+    cout << "Общее количество элементов: " << Element::count  << endl;
+}
+
+ForwardList& ForwardList::operator=(const ForwardList& other)
+{
+    // если списки одинаковые нечего не делаем
+    if (this == &other) return *this;
+    // если список не пустой то удаляем из него все
+    if (Head != nullptr) 
+    {
+        Element* Temp = Head;
+        while (Temp)
+        {
+            Element* tmp = Temp->pNext;
+            delete Temp;
+            Temp = tmp;
+        }
+    }
+    // Далее присваиваем
+    Element* Temp = other.Head;
+
+    while (Temp)
+    {
+        push_back(Temp->Data);
+        Temp = Temp->pNext;
+    }
+    size = other.size;
+    return *this;
+}
+
+ForwardList& ForwardList::operator=(ForwardList&& other) noexcept
+{
+    // если списки одинаковые нечего не делаем
+    if (this == &other) return *this;
+    // если список не пустой то удаляем из него все
+    if (Head != nullptr)
+    {
+        Element* Temp = Head;
+        while (Temp)
+        {
+            Element* tmp = Temp->pNext;
+            delete Temp;
+            Temp = tmp;
+        }
+    }
+    size = other.size;
+    Head = other.Head;
+    other.Head = nullptr;
+
+    return *this;
 }
 
 
 /*------------------------------end-class-ForwardList---------------------------*/
+
+ForwardList operator+(ForwardList left, ForwardList right)
+{
+    while (right.get_Head())
+    {
+        left.push_back(right.get_Head_Data());
+        right.set_Head(right.get_Head_pNext());
+    }
+    return left;
+}
+
+bool operator==(ForwardList left, ForwardList right)
+{
+    if (left.get_size() == right.get_size())
+    {
+        while (left.get_Head())
+        {
+            if (left.get_Head_Data() != right.get_Head_Data()) return false;
+            left.set_Head(left.get_Head_pNext());
+            right.set_Head(right.get_Head_pNext());
+        }
+        return true;
+    }else return false;
+}
