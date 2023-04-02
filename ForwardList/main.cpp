@@ -1,10 +1,13 @@
 ﻿#include"forwardList.hpp"
 
 #define delimeter "\n-------------------------------------------------\n"
+//#define HW_1
+//#define HW_2
 
 int main() {
     setlocale(LC_ALL, "");
 
+#ifdef HW_1
     ForwardList list;
 
     list.push_front(5);
@@ -28,9 +31,12 @@ int main() {
     list.push_back(66);
     list.print();
     cout << delimeter;
+#endif // HW_1
 
 
 
+
+#ifdef HW_2
     ForwardList list2;
 
     list2.push_front(7);
@@ -56,5 +62,21 @@ int main() {
     ForwardList list4 = list + list2;
     list4.print();
     cout << delimeter;
+#endif // HW_2
+
+
+
+    ForwardList list5 = {1,2};
+
+
+    /*for (int i : list5)
+    {
+        cout << i << "\t";
+    }
+    cout << endl;*/
+
+    ForwardList list;
+    list.push_back(9);
+    print(list);
     return 0;
 }

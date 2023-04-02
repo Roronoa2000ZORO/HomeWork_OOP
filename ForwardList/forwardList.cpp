@@ -20,6 +20,21 @@ Element::~Element()
 
 /*----------------------------start-class-ForwardList---------------------------*/
 
+//Iterator ForwardList::begin()
+//{
+//    return Head;
+//}
+
+Iterator ForwardList::begin() const
+{
+    return Head;
+}
+
+Iterator ForwardList::end()const
+{
+    return nullptr;
+}
+
 size_t ForwardList::get_size() const
 {
     return size;
@@ -51,14 +66,15 @@ ForwardList::ForwardList(size_t size):Head(nullptr), size(size)
     cout << "LConstructor:\t" << this << endl;
 }
 //Конструктор копирования
-ForwardList::ForwardList(ForwardList& other) : ForwardList(other.size)
+ForwardList::ForwardList(const ForwardList& other) : ForwardList(other.size)
 {
-    Element* Temp = other.Head;
-
-    while (Temp)
+    *this = other;
+}
+ForwardList::ForwardList(initializer_list<int> il):ForwardList()
+{
+    for (int const* it = il.begin(); it != il.end(); it++)
     {
-        push_back(Temp->Data);
-        Temp = Temp->pNext;
+        push_back(*it);
     }
 }
 //Конструктор переноса
@@ -66,19 +82,14 @@ ForwardList::ForwardList(ForwardList&& other) noexcept
     :size(other.size), Head(other.Head)
 {
     other.Head = nullptr;
+    other.size = 0;
 }
 
 
 //Деструктор
 ForwardList::~ForwardList()
 {
-    Element* Temp = Head;
-    while (Temp)
-    {
-        Element* tmp = Temp->pNext;
-        delete Temp;
-        Temp = tmp;
-    }
+    while (Head)pop_front();
     cout << "LDestructor:\t" << this << endl;
 }
 
@@ -111,10 +122,8 @@ void ForwardList::pop_front()
 
 void ForwardList::push_back(int Data)
 {
-    //1) Создаем новый элемент
-    //Element* New = new Element(Data);
-    //2) Если список пустой до просто добавляем значение
-    if (Head == nullptr) return push_front(Data);
+    
+    /*if (Head == nullptr) return push_front(Data);
     // В ином случаее
     else
     {
@@ -127,15 +136,18 @@ void ForwardList::push_back(int Data)
         }
         //4) добовляем элемент в конец массива
         Temp->pNext = new Element(Data);
-    }
-    size++;
+    }*/
+
+    if(size > 1)reverse();
+    push_front(Data);
+    reverse();
 }
 
 //удаляет последнее значение списка
 void ForwardList::pop_back()
 {
     //1) Если список пустой, то ничего не делаем
-    if (Head == nullptr) return;
+    /*if (Head == nullptr) return;
 
     //2) Если в списке один элемент, удаляем его
     if (Head->pNext == nullptr) pop_front();
@@ -153,8 +165,11 @@ void ForwardList::pop_back()
         delete Temp->pNext;
         Temp->pNext = nullptr;
         
-    }
-    size--;
+    }*/
+
+    if (size > 1)reverse();
+    pop_front();
+    reverse();
 }
 
 void ForwardList::insert(int Data, int pos)
@@ -178,7 +193,7 @@ void ForwardList::erase(int pos)
 {
     //1) Если список пустой, то ничего не делаем
     if (Head == nullptr) return;
-
+    if (pos > size)return;
     //2) Если в списке один элемент, удаляем его
     if (Head->pNext == nullptr) pop_front();
     else
@@ -194,6 +209,35 @@ void ForwardList::erase(int pos)
         Temp->pNext = tmp;
         size--;
     }
+}
+
+void ForwardList::reverse()
+{
+    //Проверка пустой ли список или он содержит один элемент
+    if (Head == nullptr || Head->pNext == nullptr)return;
+
+    //Для запоминания последнего элемента
+    Element* Last = nullptr;
+
+    //Цикл для обмена адресов последнего и предпоследнего элемента
+    for (size_t i = size - 1; i > 0; i--)
+    {
+        Element* Temp = Head;
+
+        //Цыкл для получения предпоследнего элемента
+        for (size_t j = i - 1; j > 0; j--)
+        {
+            Temp = Temp->pNext;
+        }
+
+        if (Temp->pNext->pNext == nullptr)Last = Temp->pNext;
+
+        Temp->pNext->pNext = Temp;
+    }
+    // Делаем начальный элемент последним
+    Head->pNext = nullptr;
+    // Присваиваем голове бывший последний элемент
+    Head = Last;
 }
 
 
@@ -221,16 +265,7 @@ ForwardList& ForwardList::operator=(const ForwardList& other)
     // если списки одинаковые нечего не делаем
     if (this == &other) return *this;
     // если список не пустой то удаляем из него все
-    if (Head != nullptr) 
-    {
-        Element* Temp = Head;
-        while (Temp)
-        {
-            Element* tmp = Temp->pNext;
-            delete Temp;
-            Temp = tmp;
-        }
-    }
+    if (Head != nullptr)while (Head)pop_front();
     // Далее присваиваем
     Element* Temp = other.Head;
 
@@ -248,16 +283,9 @@ ForwardList& ForwardList::operator=(ForwardList&& other) noexcept
     // если списки одинаковые нечего не делаем
     if (this == &other) return *this;
     // если список не пустой то удаляем из него все
-    if (Head != nullptr)
-    {
-        Element* Temp = Head;
-        while (Temp)
-        {
-            Element* tmp = Temp->pNext;
-            delete Temp;
-            Temp = tmp;
-        }
-    }
+    if (Head != nullptr)while (Head)pop_front();
+
+
     size = other.size;
     Head = other.Head;
     other.Head = nullptr;
@@ -290,4 +318,44 @@ bool operator==(ForwardList left, ForwardList right)
         }
         return true;
     }else return false;
+}
+
+
+Iterator::Iterator(Element* Temp):Temp(Temp)
+{
+}
+
+Iterator::~Iterator()
+{
+}
+
+Iterator& Iterator::operator++()
+{
+    Temp = Temp->pNext;
+    return *this;
+}
+
+bool Iterator::operator==(const Iterator& other)
+{
+    return this->Temp == other.Temp;
+}
+
+bool Iterator::operator!=(const Iterator& other)
+{
+    return this->Temp != other.Temp;
+}
+
+int& Iterator::operator*()
+{
+    return Temp->Data;
+}
+
+
+void const print(const ForwardList& list)
+{
+    for (int i : list)
+    {
+        cout << i << "\t";
+    }
+    cout << endl;
 }

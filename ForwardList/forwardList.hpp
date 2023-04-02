@@ -3,9 +3,10 @@
 
 
 #include<iostream>
+#include <iterator>
 
 using namespace std;
-
+using std::cout;
 
 class Element 
 {
@@ -20,7 +21,26 @@ public:
     //Деструктор
     ~Element();
     friend class ForwardList;
+    friend class Iterator;
 };
+
+class Iterator
+{
+private:
+    Element* Temp;
+public:
+
+    Iterator(Element* Temp);
+    ~Iterator();
+
+    Iterator& operator++();
+    bool operator==(const Iterator& other);
+    bool operator!=(const Iterator& other);
+
+    int& operator*();
+
+};
+
 
 
 class ForwardList 
@@ -29,6 +49,8 @@ private:
     Element* Head;
     size_t size;
 public:
+    Iterator begin()const;
+    Iterator end()const;
 
     size_t get_size()const;
     Element* get_Head()const;
@@ -40,7 +62,9 @@ public:
     //Конструктор по умолчанию
     ForwardList(size_t size = 0);
     //Конструктор копирования
-    ForwardList(ForwardList& other);
+    ForwardList(const ForwardList& other);
+
+    ForwardList(initializer_list<int> il);
     //Конструктор переноса
     ForwardList(ForwardList&& other)noexcept;
     //Деструктор
@@ -60,15 +84,21 @@ public:
 
     void erase(int pos);
 
+    void reverse();
+
     void print()const;
 
     ForwardList& operator=(const ForwardList& other);
     ForwardList& operator=(ForwardList&& other)noexcept;
+
 };
 
 ForwardList operator+(ForwardList left, ForwardList right);
 
 bool operator==(ForwardList left, ForwardList right);
+
+
+void const print(const ForwardList& list);
 
 
 #endif // !FORWARDLIST_HPP
