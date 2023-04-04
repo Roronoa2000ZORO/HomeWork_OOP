@@ -1,9 +1,11 @@
 ﻿#include"forwardList.hpp"
 
-int Element::count = 0;
+
+template<typename T>
+int Element<T>::count = 0;
 /*----------------------------start-class-Element-------------------------------*/
 //Конструктор
-Element::Element(int Data, Element* pNext)
+template<typename T>Element<T>::Element(T Data, Element<T>* pNext)
     :Data(Data), pNext(pNext) 
 {
     count++;
@@ -11,7 +13,7 @@ Element::Element(int Data, Element* pNext)
 }
 
 //Деструктор
-Element::~Element()
+template<typename T>Element<T>::~Element()
 {
     count--;
     cout << "EDestructor:\t" << this << endl;
@@ -25,70 +27,70 @@ Element::~Element()
 //    return Head;
 //}
 
-Iterator ForwardList::begin()
+template<typename T>Iterator<T> ForwardList<T>::begin()
 {
     return Head;
 }
 
-Iterator ForwardList::end()
+template<typename T>Iterator<T> ForwardList<T>::end()
 {
     return nullptr;
 }
 
-ConstIterator ForwardList::begin() const
+template<typename T>ConstIterator<T> ForwardList<T>::begin() const
 {
     return Head;
 }
 
-ConstIterator ForwardList::end()const
+template<typename T>ConstIterator<T> ForwardList<T>::end()const
 {
     return nullptr;
 }
 
-size_t ForwardList::get_size() const
+template<typename T>size_t ForwardList<T>::get_size() const
 {
     return size;
 }
 
-Element* ForwardList::get_Head() const
+template<typename T>Element<T>* ForwardList<T>::get_Head() const
 {
     return Head;
 }
 
-Element* ForwardList::get_Head_pNext() const
+template<typename T>Element<T>* ForwardList<T>::get_Head_pNext() const
 {
     return Head->pNext;
 }
 
-int ForwardList::get_Head_Data() const
+template<typename T>T ForwardList<T>::get_Head_Data() const
 {
     return Head->Data;
 }
 
-void ForwardList::set_Head(Element* pNext)
+template<typename T>void ForwardList<T>::set_Head(Element<T>* pNext)
 {
     Head = pNext;
 }
 
 //Конструктор
-ForwardList::ForwardList(size_t size):Head(nullptr), size(size)
+template<typename T>ForwardList<T>::ForwardList(size_t size):Head(nullptr), size(size)
 {
     cout << "LConstructor:\t" << this << endl;
 }
 //Конструктор копирования
-ForwardList::ForwardList(const ForwardList& other) : ForwardList(other.size)
+template<typename T>ForwardList<T>::ForwardList(const ForwardList<T>& other) : ForwardList(other.size)
 {
     *this = other;
 }
-ForwardList::ForwardList(initializer_list<int> il):ForwardList()
+template<typename T>ForwardList<T>::ForwardList(initializer_list<T> il):ForwardList<T>()
 {
-    for (int const* it = il.begin(); it != il.end(); it++)
+    for (T const* it = il.begin(); it != il.end(); it++)
     {
         push_back(*it);
     }
 }
 //Конструктор переноса
-ForwardList::ForwardList(ForwardList&& other) noexcept
+template<typename T>ForwardList<T>::ForwardList(ForwardList<T>&& other) noexcept
     :size(other.size), Head(other.Head)
 {
     other.Head = nullptr;
@@ -97,7 +99,7 @@ ForwardList::ForwardList(ForwardList&& other) noexcept
 
 
 //Деструктор
-ForwardList::~ForwardList()
+template<typename T>ForwardList<T>::~ForwardList()
 {
     while (Head)pop_front();
     cout << "LDestructor:\t" << this << endl;
@@ -105,20 +107,20 @@ ForwardList::~ForwardList()
 
 
 ///добавляет значение в начало списка
-void ForwardList::push_front(int Data)
+template<typename T>void ForwardList<T>::push_front(T Data)
 {
-    Head = new Element(Data, Head);
+    Head = new Element<T>(Data, Head);
     /*Element* New = new Element(Data);
     New->pNext = Head;
     Head = New;*/
     size++;
 }
 //удаляет начальный элемент списка
-void ForwardList::pop_front()
+template<typename T>void ForwardList<T>::pop_front()
 {
     if (Head != nullptr) {
         //1) Запоминаем адрес следующего элемента
-        Element* tmp = Head->pNext;
+        Element<T>* tmp = Head->pNext;
         //2) Удаляем первый элемент
         delete Head;
         //3) Делаем следующий элемент начальным
@@ -130,7 +132,7 @@ void ForwardList::pop_front()
 
 //добавляет значение в конец списка
 
-void ForwardList::push_back(int Data)
+template<typename T>void ForwardList<T>::push_back(T Data)
 {
     
     if (Head == nullptr) return push_front(Data);
@@ -138,21 +140,21 @@ void ForwardList::push_back(int Data)
     else
     {
         //2) Создаем итератор
-        Element* Temp = Head;
+        Element<T>* Temp = Head;
         //3) Создаем цикл для получения доступа к последнему элементу списка
         while (Temp->pNext != nullptr) {
             // Переходим на следующий элемент
             Temp = Temp->pNext;
         }
         //4) добовляем элемент в конец массива
-        Temp->pNext = new Element(Data);
+        Temp->pNext = new Element<T>(Data);
     }
 
     size++;
 }
 
 //удаляет последнее значение списка
-void ForwardList::pop_back()
+template<typename T>void ForwardList<T>::pop_back()
 {
     //1) Если список пустой, то ничего не делаем
     if (Head == nullptr) return;
@@ -163,7 +165,7 @@ void ForwardList::pop_back()
     else
     {
         //3) Создаем итератор
-        Element* Temp = Head;
+        Element<T>* Temp = Head;
         //4) Создаем цикл для получения доступа к последнему элементу списка
         while (Temp->pNext->pNext != nullptr) {
             // Переходим на следующий элемент
@@ -178,15 +180,15 @@ void ForwardList::pop_back()
     size--;
 }
 
-void ForwardList::insert(int Data, int pos)
+template<typename T>void ForwardList<T>::insert(T Data, int pos)
 {
     if (pos > size)return;
     if (pos == 0)return push_front(Data);
     //1) Создаем новый элемент
-    Element* New = new Element(Data);
+    Element<T>* New = new Element<T>(Data);
 
     //2) Доходим до нужного элемента
-    Element* Temp = Head;
+    Element<T>* Temp = Head;
     for (size_t i = 0; i < pos - 1; i++)Temp = Temp->pNext;
 
     //3) поместить элемент в нужную позициию
@@ -195,7 +197,7 @@ void ForwardList::insert(int Data, int pos)
     size++;
 }
 
-void ForwardList::erase(int pos)
+template<typename T>void ForwardList<T>::erase(int pos)
 {
     //1) Если список пустой, то ничего не делаем
     if (Head == nullptr) return;
@@ -205,21 +207,21 @@ void ForwardList::erase(int pos)
     else
     {
         //2) Доходим до нужного элемента
-        Element* Temp = Head;
+        Element<T>* Temp = Head;
         for (size_t i = 0; i < pos - 1; i++)Temp = Temp->pNext;
 
         //3) удаляем элемент в нужной позициии
 
-        Element* tmp = Temp->pNext->pNext;
+        Element<T>* tmp = Temp->pNext->pNext;
         delete Temp->pNext;
         Temp->pNext = tmp;
         size--;
     }
 }
 
-void ForwardList::reverse()
+template<typename T>void ForwardList<T>::reverse()
 {
-    ForwardList buffer;
+    ForwardList<T> buffer;
     while (Head)
     {
         buffer.push_front(Head->Data);
@@ -233,7 +235,7 @@ void ForwardList::reverse()
 
 
 //Вывод списка
-void ForwardList::print() const
+template<typename T>void ForwardList<T>::print() const
 {
     /*Element* Temp = Head;
 
@@ -242,15 +244,15 @@ void ForwardList::print() const
         cout << Temp << "\t" << Temp->Data << "\t" << Temp->pNext << endl;
         Temp = Temp->pNext;
     }*/
-    for (Element* Temp = Head; Temp; Temp = Temp->pNext)
+    for (Element<T>* Temp = Head; Temp; Temp = Temp->pNext)
     {
         cout << Temp << "\t" << Temp->Data << "\t" << Temp->pNext << endl;
     }
     cout << "Количество элементов списка: " << size  << endl;
-    cout << "Общее количество элементов: " << Element::count  << endl;
+    cout << "Общее количество элементов: " << Element<T>::count  << endl;
 }
 
-ForwardList& ForwardList::operator=(const ForwardList& other)
+template<typename T>ForwardList<T>& ForwardList<T>::operator=(const ForwardList<T>& other)
 {
     // если списки одинаковые нечего не делаем
     if (this == &other) return *this;
@@ -267,7 +269,7 @@ ForwardList& ForwardList::operator=(const ForwardList& other)
     return *this;
 }
 
-ForwardList& ForwardList::operator=(ForwardList&& other) noexcept
+template<typename T>ForwardList<T>& ForwardList<T>::operator=(ForwardList<T>&& other) noexcept
 {
     // если списки одинаковые нечего не делаем
     if (this == &other) return *this;
@@ -285,7 +287,7 @@ ForwardList& ForwardList::operator=(ForwardList&& other) noexcept
 
 /*------------------------------end-class-ForwardList---------------------------*/
 
-ForwardList operator+(ForwardList left, ForwardList right)
+template<typename T>ForwardList<T> operator+(ForwardList<T> left, ForwardList<T> right)
 {
     while (right.get_Head())
     {
@@ -295,7 +297,7 @@ ForwardList operator+(ForwardList left, ForwardList right)
     return left;
 }
 
-bool operator==(ForwardList left, ForwardList right)
+template<typename T>bool operator==(ForwardList<T> left, ForwardList<T> right)
 {
     if (left.get_size() == right.get_size())
     {
@@ -310,68 +312,68 @@ bool operator==(ForwardList left, ForwardList right)
 }
 
 
-ConstIterator::ConstIterator(Element* Temp):Temp(Temp)
+template<typename T>ConstIterator<T>::ConstIterator(Element<T>* Temp):Temp(Temp)
 {
 }
 
-ConstIterator::~ConstIterator()
+template<typename T>ConstIterator<T>::~ConstIterator()
 {
 }
 
-ConstIterator& ConstIterator::operator++()
+template<typename T>ConstIterator<T>& ConstIterator<T>::operator++()
 {
     Temp = Temp->pNext;
     return *this;
 }
 
-bool ConstIterator::operator==(const ConstIterator& other)
+template<typename T>bool ConstIterator<T>::operator==(const ConstIterator<T>& other)
 {
     return this->Temp == other.Temp;
 }
 
-bool ConstIterator::operator!=(const ConstIterator& other)
+template<typename T>bool ConstIterator<T>::operator!=(const ConstIterator<T>& other)
 {
     return this->Temp != other.Temp;
 }
 
-const int& ConstIterator::operator*()const
+template<typename T>const T& ConstIterator<T>::operator*()const
 {
     return Temp->Data;
 }
 
-Iterator::Iterator(Element* Temp):Temp(Temp)
+template<typename T>Iterator<T>::Iterator(Element<T>* Temp):Temp(Temp)
 {
 }
 
-Iterator::~Iterator()
+template<typename T>Iterator<T>::~Iterator()
 {
 }
 
-Iterator& Iterator::operator++()
+template<typename T>Iterator<T>& Iterator<T>::operator++()
 {
     Temp = Temp->pNext;
     return *this;
 }
 
-bool Iterator::operator==(const Iterator& other)
+template<typename T>bool Iterator<T>::operator==(const Iterator<T>& other)
 {
     return this->Temp == other.Temp;
 }
 
-bool Iterator::operator!=(const Iterator& other)
+template<typename T>bool Iterator<T>::operator!=(const Iterator<T>& other)
 {
     return this->Temp != other.Temp;
 }
 
-int& Iterator::operator*()
+template<typename T>T& Iterator<T>::operator*()
 {
     return Temp->Data;
 }
 
 
-void const print(const ForwardList& list)
+template<typename T>void const print(const ForwardList<T>& list)
 {
-    for (const int& i : list)
+    for (const T& i : list)
     {
         cout << i << "\t";
     }

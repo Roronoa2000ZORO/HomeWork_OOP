@@ -1,4 +1,4 @@
-﻿#include"forwardList.hpp"
+﻿#include"forwardList.cpp"
 
 #define delimeter "\n-------------------------------------------------\n"
 //#define HW_1
@@ -66,7 +66,7 @@ int main() {
 
 
 
-    ForwardList list5 = {1,2};
+    ForwardList<int> list5 = {1,2};
 
 
     /*for (int i : list5)
@@ -75,7 +75,7 @@ int main() {
     }
     cout << endl;*/
 
-    ForwardList list;
+    ForwardList<double> list;
     list.push_back(9);
     print(list);
     return 0;
