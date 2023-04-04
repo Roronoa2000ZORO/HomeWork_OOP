@@ -25,12 +25,22 @@ Element::~Element()
 //    return Head;
 //}
 
-Iterator ForwardList::begin() const
+Iterator ForwardList::begin()
 {
     return Head;
 }
 
-Iterator ForwardList::end()const
+Iterator ForwardList::end()
+{
+    return nullptr;
+}
+
+ConstIterator ForwardList::begin() const
+{
+    return Head;
+}
+
+ConstIterator ForwardList::end()const
 {
     return nullptr;
 }
@@ -123,7 +133,7 @@ void ForwardList::pop_front()
 void ForwardList::push_back(int Data)
 {
     
-    /*if (Head == nullptr) return push_front(Data);
+    if (Head == nullptr) return push_front(Data);
     // В ином случаее
     else
     {
@@ -136,18 +146,16 @@ void ForwardList::push_back(int Data)
         }
         //4) добовляем элемент в конец массива
         Temp->pNext = new Element(Data);
-    }*/
+    }
 
-    if(size > 1)reverse();
-    push_front(Data);
-    reverse();
+    size++;
 }
 
 //удаляет последнее значение списка
 void ForwardList::pop_back()
 {
     //1) Если список пустой, то ничего не делаем
-    /*if (Head == nullptr) return;
+    if (Head == nullptr) return;
 
     //2) Если в списке один элемент, удаляем его
     if (Head->pNext == nullptr) pop_front();
@@ -165,11 +173,9 @@ void ForwardList::pop_back()
         delete Temp->pNext;
         Temp->pNext = nullptr;
         
-    }*/
+    }
 
-    if (size > 1)reverse();
-    pop_front();
-    reverse();
+    size--;
 }
 
 void ForwardList::insert(int Data, int pos)
@@ -213,31 +219,15 @@ void ForwardList::erase(int pos)
 
 void ForwardList::reverse()
 {
-    //Проверка пустой ли список или он содержит один элемент
-    if (Head == nullptr || Head->pNext == nullptr)return;
-
-    //Для запоминания последнего элемента
-    Element* Last = nullptr;
-
-    //Цикл для обмена адресов последнего и предпоследнего элемента
-    for (size_t i = size - 1; i > 0; i--)
+    ForwardList buffer;
+    while (Head)
     {
-        Element* Temp = Head;
-
-        //Цыкл для получения предпоследнего элемента
-        for (size_t j = i - 1; j > 0; j--)
-        {
-            Temp = Temp->pNext;
-        }
-
-        if (Temp->pNext->pNext == nullptr)Last = Temp->pNext;
-
-        Temp->pNext->pNext = Temp;
+        buffer.push_front(Head->Data);
+        pop_front();
     }
-    // Делаем начальный элемент последним
-    Head->pNext = nullptr;
-    // Присваиваем голове бывший последний элемент
-    Head = Last;
+
+    Head = buffer.Head;
+    buffer.Head = nullptr;
 }
 
 
@@ -267,13 +257,12 @@ ForwardList& ForwardList::operator=(const ForwardList& other)
     // если список не пустой то удаляем из него все
     if (Head != nullptr)while (Head)pop_front();
     // Далее присваиваем
-    Element* Temp = other.Head;
-
-    while (Temp)
+    
+    for (Element* Temp = other.Head; Temp; Temp = Temp->pNext)
     {
-        push_back(Temp->Data);
-        Temp = Temp->pNext;
+        push_front(Temp->Data);
     }
+    reverse();
     size = other.size;
     return *this;
 }
@@ -321,6 +310,35 @@ bool operator==(ForwardList left, ForwardList right)
 }
 
 
+ConstIterator::ConstIterator(Element* Temp):Temp(Temp)
+{
+}
+
+ConstIterator::~ConstIterator()
+{
+}
+
+ConstIterator& ConstIterator::operator++()
+{
+    Temp = Temp->pNext;
+    return *this;
+}
+
+bool ConstIterator::operator==(const ConstIterator& other)
+{
+    return this->Temp == other.Temp;
+}
+
+bool ConstIterator::operator!=(const ConstIterator& other)
+{
+    return this->Temp != other.Temp;
+}
+
+const int& ConstIterator::operator*()const
+{
+    return Temp->Data;
+}
+
 Iterator::Iterator(Element* Temp):Temp(Temp)
 {
 }
@@ -353,7 +371,7 @@ int& Iterator::operator*()
 
 void const print(const ForwardList& list)
 {
-    for (int i : list)
+    for (const int& i : list)
     {
         cout << i << "\t";
     }

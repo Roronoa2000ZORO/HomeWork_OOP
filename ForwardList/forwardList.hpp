@@ -21,7 +21,25 @@ public:
     //Деструктор
     ~Element();
     friend class ForwardList;
+    friend class ConstIterator;
     friend class Iterator;
+};
+
+class ConstIterator
+{
+private:
+    Element* Temp;
+public:
+
+    ConstIterator(Element* Temp);
+    ~ConstIterator();
+
+    ConstIterator& operator++();
+    bool operator==(const ConstIterator& other);
+    bool operator!=(const ConstIterator& other);
+
+    const int& operator*()const ;
+
 };
 
 class Iterator
@@ -49,8 +67,10 @@ private:
     Element* Head;
     size_t size;
 public:
-    Iterator begin()const;
-    Iterator end()const;
+    Iterator begin();
+    Iterator end();
+    ConstIterator begin()const;
+    ConstIterator end()const;
 
     size_t get_size()const;
     Element* get_Head()const;
