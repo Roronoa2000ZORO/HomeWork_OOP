@@ -1,5 +1,6 @@
-#include"list2x.hpp"
+ï»¿#include"list2x.hpp"
 
+using std::cout;
 //#define HW_1
 int main()
 {
@@ -7,7 +8,7 @@ int main()
 
 #ifdef HW_1
     int size;
-    cout << "Ââåäèòå ðàçìåð ñïèñêà: "; cin >> size;
+    cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ñ€Ð°Ð·Ð¼ÐµÑ€ ÑÐ¿Ð¸ÑÐºÐ°: "; cin >> size;
 
     List list;
     for (size_t i = 0; i < size; i++)
@@ -20,24 +21,29 @@ int main()
 
     int pos;
     int value;
-    cout << "Ââåäèòå ïîçèöèþ äîáîâëÿåìîãî ýëåìåíòà: "; cin >> pos;
-    cout << "Ââåäèòå çíà÷åíèå äîáîâëÿåìîãî ýëåìåíòà: "; cin >> value;
+    cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð¿Ð¾Ð·Ð¸Ñ†Ð¸ÑŽ Ð´Ð¾Ð±Ð¾Ð²Ð»ÑÐµÐ¼Ð¾Ð³Ð¾ ÑÐ»ÐµÐ¼ÐµÐ½Ñ‚Ð°: "; cin >> pos;
+    cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ðµ Ð´Ð¾Ð±Ð¾Ð²Ð»ÑÐµÐ¼Ð¾Ð³Ð¾ ÑÐ»ÐµÐ¼ÐµÐ½Ñ‚Ð°: "; cin >> value;
     list.insert(value, pos);
     list.print();
 
-    cout << "Ââåäèòå ïîçèöèþ óäàëÿåìîãî ýëåìåíòà: "; cin >> pos;
+    cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð¿Ð¾Ð·Ð¸Ñ†Ð¸ÑŽ ÑƒÐ´Ð°Ð»ÑÐµÐ¼Ð¾Ð³Ð¾ ÑÐ»ÐµÐ¼ÐµÐ½Ñ‚Ð°: "; cin >> pos;
     list.erase(pos);
     list.print();
 #endif // HW_1
 
 
-    List list = { 3, 5, 8, 13, 21 };
+    /*List list = { 3, 5, 8, 13, 21 };
 
     for (int i : list)
     {
         cout << i << tab;
     }
-    cout << endl;
+    cout << endl;*/
+
+    int a = 5;
+    double b = 2;
+    int c = a / b;
+    cout << c;
 
     return 0;
 }

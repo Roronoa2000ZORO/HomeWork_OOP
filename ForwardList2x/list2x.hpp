@@ -1,4 +1,4 @@
-#ifndef LIST2X_HPP
+﻿#ifndef LIST2X_HPP
 #define LIST2X_HPP
 
 #include<iostream>
@@ -21,12 +21,15 @@ private:
 		friend class List;
 	}*Head, *Tail;
 	
+
+	size_t size;
+public:
 	class Iterator
 	{
 	private:
 		Element* Temp;
 	public:
-		
+
 		Iterator(Element* Temp);
 		~Iterator();
 
@@ -35,11 +38,8 @@ private:
 		bool operator!=(const Iterator& other);
 
 		int& operator*();
-	
-	};
 
-	size_t size;
-public:
+	};
 
 	Iterator begin();
 	Iterator end();

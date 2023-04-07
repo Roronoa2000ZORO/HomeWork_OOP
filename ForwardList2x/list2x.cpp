@@ -1,4 +1,4 @@
-#include"list2x.hpp"
+п»ї#include"list2x.hpp"
 
 List::Element::Element(int Data, Element* pNext, Element* pPrev)
     :Data(Data), pNext(pNext), pPrev(pPrev)
@@ -44,14 +44,14 @@ int& List::Iterator::operator*()
 
 
 
-//Конструктор по умалчанию
+//РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РїРѕ СѓРјР°Р»С‡Р°РЅРёСЋ
 List::List()
 {
     Head = Tail = nullptr;
     size = 0;
     cout << "LConstructor: " << this << endl;;
 }
-//Конструктор принимающий список инициализации
+//РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РїСЂРёРЅРёРјР°СЋС‰РёР№ СЃРїРёСЃРѕРє РёРЅРёС†РёР°Р»РёР·Р°С†РёРё
 List::List(initializer_list<int> il) : List()
 {
     for (int const* it = il.begin(); it != il.end(); it++)
@@ -60,47 +60,47 @@ List::List(initializer_list<int> il) : List()
     }
 }
 
-//Конструктор копирования
+//РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РєРѕРїРёСЂРѕРІР°РЅРёСЏ
 List::List(const List& other) : List()
 {
     *this = other;
 }
 
-//Конструктор переноса
+//РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РїРµСЂРµРЅРѕСЃР°
 List::List(List&& other) noexcept: Head(other.Head), Tail(other.Tail), size(other.size)
 {
     other.Head = other.Tail = nullptr;
     other.size = size_t();
 }
 
-//Деструктор
+//Р”РµСЃС‚СЂСѓРєС‚РѕСЂ
 List::~List()
 {
     while(Head) pop_back();
     cout << "LDestructor: " << this << endl;
 }
 
-//Вывод списка
+//Р’С‹РІРѕРґ СЃРїРёСЃРєР°
 void List::print() const
 {
     for (Element* Temp = Head; Temp;Temp = Temp->pNext)
     {
         cout << Temp << tab << Temp->pPrev << tab << Temp->Data << tab << Temp->pNext << endl;
     }
-    cout << "Количество элементов списка: " << size << endl;
+    cout << "РљРѕР»РёС‡РµСЃС‚РІРѕ СЌР»РµРјРµРЅС‚РѕРІ СЃРїРёСЃРєР°: " << size << endl;
 }
 
-//Вывод списка задом наперед
+//Р’С‹РІРѕРґ СЃРїРёСЃРєР° Р·Р°РґРѕРј РЅР°РїРµСЂРµРґ
 void List::reverse_print()const
 {
     for (Element* Temp = Tail; Temp; Temp = Temp->pPrev)
     {
         cout << Temp << tab << Temp->pNext << tab << Temp->Data << tab << Temp->pPrev << endl;
     }
-    cout << "Количество элементов списка: " << size << endl;
+    cout << "РљРѕР»РёС‡РµСЃС‚РІРѕ СЌР»РµРјРµРЅС‚РѕРІ СЃРїРёСЃРєР°: " << size << endl;
 }
 
-//добавляет значение в начало списка
+//РґРѕР±Р°РІР»СЏРµС‚ Р·РЅР°С‡РµРЅРёРµ РІ РЅР°С‡Р°Р»Рѕ СЃРїРёСЃРєР°
 void List::push_front(int Data)
 {
     if (Head == nullptr && Tail == nullptr)
@@ -114,13 +114,12 @@ void List::push_front(int Data)
         Head->pPrev = New;
         Head = New;*/
 
-        Head->pPrev = new Element(Data, Head);
-        Head = Head->pPrev;
+        Head = Head->pPrev = new Element(Data, Head);
     }
     size++;
 }
 
-//добавляет значение в конец списка
+//РґРѕР±Р°РІР»СЏРµС‚ Р·РЅР°С‡РµРЅРёРµ РІ РєРѕРЅРµС† СЃРїРёСЃРєР°
 void List::push_back(int Data)
 {
     if (Head == nullptr && Tail == nullptr)return push_front(Data);
@@ -131,13 +130,12 @@ void List::push_back(int Data)
         Tail->pNext = New;
         Tail = New;*/
 
-        Tail->pNext = new Element(Data, nullptr, Tail);
-        Tail = Tail->pNext;
+        Tail = Tail->pNext = new Element(Data, nullptr, Tail);
     }
     size++;
 }
 
-//удаляет начальный элемент списка
+//СѓРґР°Р»СЏРµС‚ РЅР°С‡Р°Р»СЊРЅС‹Р№ СЌР»РµРјРµРЅС‚ СЃРїРёСЃРєР°
 void List::pop_front()
 {
     if (Head == nullptr && Tail == nullptr)return;
@@ -155,7 +153,7 @@ void List::pop_front()
     size--;
 }
 
-//удаляет последнее значение списка
+//СѓРґР°Р»СЏРµС‚ РїРѕСЃР»РµРґРЅРµРµ Р·РЅР°С‡РµРЅРёРµ СЃРїРёСЃРєР°
 void List::pop_back()
 {
     if (Head == nullptr && Tail == nullptr)return;
@@ -168,13 +166,13 @@ void List::pop_back()
     size--;
 }
 
-//добавляет значение по указанному индексу
+//РґРѕР±Р°РІР»СЏРµС‚ Р·РЅР°С‡РµРЅРёРµ РїРѕ СѓРєР°Р·Р°РЅРЅРѕРјСѓ РёРЅРґРµРєСЃСѓ
 void List::insert(int Data, int pos)
 {
     if (pos > size)return;
-    // Если индекс добавления указывает на начальный элемент
+    // Р•СЃР»Рё РёРЅРґРµРєСЃ РґРѕР±Р°РІР»РµРЅРёСЏ СѓРєР°Р·С‹РІР°РµС‚ РЅР° РЅР°С‡Р°Р»СЊРЅС‹Р№ СЌР»РµРјРµРЅС‚
     if (pos == 0)return push_front(Data);
-    // Если индекс добавления указывает на последний элемент
+    // Р•СЃР»Рё РёРЅРґРµРєСЃ РґРѕР±Р°РІР»РµРЅРёСЏ СѓРєР°Р·С‹РІР°РµС‚ РЅР° РїРѕСЃР»РµРґРЅРёР№ СЌР»РµРјРµРЅС‚
     if (pos == size - 1)return push_back(Data);
 
     Element* Temp;
@@ -195,20 +193,19 @@ void List::insert(int Data, int pos)
     Temp->pPrev->pNext = New;
     Temp->pPrev = New;*/
 
-    Temp->pPrev->pNext = new Element(Data, Temp, Temp->pPrev);
-    Temp->pPrev = Temp->pPrev->pNext;
+    Temp->pPrev = Temp->pPrev->pNext = new Element(Data, Temp, Temp->pPrev);
 
     size++;
 }
 
-//удаляет значение по указанному индексу
+//СѓРґР°Р»СЏРµС‚ Р·РЅР°С‡РµРЅРёРµ РїРѕ СѓРєР°Р·Р°РЅРЅРѕРјСѓ РёРЅРґРµРєСЃСѓ
 void List::erase(int pos)
 {
     if (Head == nullptr && Tail == nullptr) return;
     if (pos > size)return;
-    // Если в списке один элемент или индекс удаления указывает на начальный элемент
+    // Р•СЃР»Рё РІ СЃРїРёСЃРєРµ РѕРґРёРЅ СЌР»РµРјРµРЅС‚ РёР»Рё РёРЅРґРµРєСЃ СѓРґР°Р»РµРЅРёСЏ СѓРєР°Р·С‹РІР°РµС‚ РЅР° РЅР°С‡Р°Р»СЊРЅС‹Р№ СЌР»РµРјРµРЅС‚
     if (Head == Tail || pos == 0)return pop_front();
-    // Если индекс удаления указывает на последний элемент
+    // Р•СЃР»Рё РёРЅРґРµРєСЃ СѓРґР°Р»РµРЅРёСЏ СѓРєР°Р·С‹РІР°РµС‚ РЅР° РїРѕСЃР»РµРґРЅРёР№ СЌР»РµРјРµРЅС‚
     if (pos == size - 1)return pop_back();
 
     Element* Temp;
@@ -223,12 +220,12 @@ void List::erase(int pos)
         for (size_t i = 0; i < size - pos - 1; i++)Temp = Temp->pPrev;
     }
 
-    //1) Присваиваем предедушему элементу удалаемого значения следующий его элемент
+    //1) РџСЂРёСЃРІР°РёРІР°РµРј РїСЂРµРґРµРґСѓС€РµРјСѓ СЌР»РµРјРµРЅС‚Сѓ СѓРґР°Р»Р°РµРјРѕРіРѕ Р·РЅР°С‡РµРЅРёСЏ СЃР»РµРґСѓСЋС‰РёР№ РµРіРѕ СЌР»РµРјРµРЅС‚
     Temp->pPrev->pNext = Temp->pNext;
-    //2) Присваиваем следующему элементу удаляемого значение предедущий его элемент
+    //2) РџСЂРёСЃРІР°РёРІР°РµРј СЃР»РµРґСѓСЋС‰РµРјСѓ СЌР»РµРјРµРЅС‚Сѓ СѓРґР°Р»СЏРµРјРѕРіРѕ Р·РЅР°С‡РµРЅРёРµ РїСЂРµРґРµРґСѓС‰РёР№ РµРіРѕ СЌР»РµРјРµРЅС‚
     Temp->pNext->pPrev = Temp->pPrev;
 
-    //3) обнуляем указатели удаляемого значение
+    //3) РѕР±РЅСѓР»СЏРµРј СѓРєР°Р·Р°С‚РµР»Рё СѓРґР°Р»СЏРµРјРѕРіРѕ Р·РЅР°С‡РµРЅРёРµ
     Temp->pNext = Temp->pPrev = nullptr;
     delete Temp;
 
@@ -237,12 +234,12 @@ void List::erase(int pos)
 
 List& List::operator=(const List& other)
 {
-    // если списки одинаковые нечего не делаем
+    // РµСЃР»Рё СЃРїРёСЃРєРё РѕРґРёРЅР°РєРѕРІС‹Рµ РЅРµС‡РµРіРѕ РЅРµ РґРµР»Р°РµРј
     if (this == &other)return *this;
-    // если список не пустой то удаляем из него все
+    // РµСЃР»Рё СЃРїРёСЃРѕРє РЅРµ РїСѓСЃС‚РѕР№ С‚Рѕ СѓРґР°Р»СЏРµРј РёР· РЅРµРіРѕ РІСЃРµ
     if (Head != nullptr)while (Head)pop_front();
 
-    // Далее присваиваем
+    // Р”Р°Р»РµРµ РїСЂРёСЃРІР°РёРІР°РµРј
     for (Element* Temp = other.Head; Temp; Temp = Temp->pNext)
     {
         push_back(Temp->Data);
@@ -254,9 +251,9 @@ List& List::operator=(const List& other)
 
 List& List::operator=(List&& other) noexcept
 {
-    // если списки одинаковые нечего не делаем
+    // РµСЃР»Рё СЃРїРёСЃРєРё РѕРґРёРЅР°РєРѕРІС‹Рµ РЅРµС‡РµРіРѕ РЅРµ РґРµР»Р°РµРј
     if (this == &other)return *this;
-    // если список не пустой то удаляем из него все
+    // РµСЃР»Рё СЃРїРёСЃРѕРє РЅРµ РїСѓСЃС‚РѕР№ С‚Рѕ СѓРґР°Р»СЏРµРј РёР· РЅРµРіРѕ РІСЃРµ
     if (Head != nullptr)while (Head)pop_front();
 
     Head = other.Head;
