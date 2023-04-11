@@ -1,4 +1,5 @@
-﻿#include"list2x.hpp"
+﻿//#include"list2x.hpp"
+#include"list2x.cpp"
 
 using std::cout;
 //#define HW_1
@@ -32,18 +33,21 @@ int main()
 #endif // HW_1
 
 
-    /*List list = { 3, 5, 8, 13, 21 };
-
-    for (int i : list)
+    List<int> list1 = { 3, 5, 8, 13, 21 };
+    List<int> list2 = { 34, 55, 89 };
+    List<int> list3 = list1 + list2;
+    for (int i : list1) cout << i << tab;
+    cout << endl;
+    for (int i : list2) cout << i << tab;
+    cout << endl;
+    for (int i : list3) cout << i << tab;
+    cout << endl;
+    
+    
+    for (List<int>::ConstIterator it = list3.rbegin(); it != list3.rend(); --it)
     {
-        cout << i << tab;
+        cout << *it << tab;
     }
-    cout << endl;*/
-
-    int a = 5;
-    double b = 2;
-    int c = a / b;
-    cout << c;
 
     return 0;
 }

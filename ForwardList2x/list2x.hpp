@@ -6,50 +6,74 @@ using namespace std;
 
 #define tab "\t"
 
+template<typename T>
 class List
 {
 private:
 	class Element
 	{
 	private:
-		int Data;
+		T Data;
 		Element* pNext;
 		Element* pPrev;
 	public:
-		Element(int Data, Element* pNext = nullptr, Element* pPrev = nullptr);
+		Element(T Data, Element* pNext = nullptr, Element* pPrev = nullptr);
 		~Element();
-		friend class List;
+		friend class List<T>;
+		
 	}*Head, *Tail;
-	
 
 	size_t size;
-public:
-	class Iterator
+	class ConstBaseIterator
 	{
-	private:
+	protected:
 		Element* Temp;
 	public:
+		ConstBaseIterator(Element* Temp = nullptr) :Temp(Temp) {}
+		~ConstBaseIterator() {}
 
-		Iterator(Element* Temp);
-		~Iterator();
+		bool operator==(const ConstBaseIterator& other)const;
+		bool operator!=(const ConstBaseIterator& other)const;
+		
 
-		Iterator& operator++();
-		bool operator==(const Iterator& other);
-		bool operator!=(const Iterator& other);
+		const T& operator*()const;
+	};
+	
+public:
+	class ConstIterator :public ConstBaseIterator
+	{
+	public:
+		ConstIterator(Element* Temp = nullptr) :ConstBaseIterator(Temp) {}
+		~ConstIterator() {}
 
-		int& operator*();
-
+		ConstIterator& operator++();
+		ConstIterator operator++(int);
+		ConstIterator& operator--();
+		ConstIterator operator--(int);
+	};
+	
+	class Iterator :public ConstIterator
+	{
+	public:
+		Iterator(Element* Temp = nullptr) :ConstIterator(Temp) {}
+		~Iterator() {}
+		T& operator*();
 	};
 
+	const ConstIterator begin()const;
+	const ConstIterator end()const;
 	Iterator begin();
 	Iterator end();
 
-
+	const ConstIterator rbegin()const;
+	const ConstIterator rend()const;
+	Iterator rbegin();
+	Iterator rend();
 
 
 	List();
 
-	List(initializer_list<int> il);
+	List(initializer_list<T> il);
 
 	List(const List& other);
 	List(List&& other)noexcept;
@@ -62,20 +86,24 @@ public:
 	void print()const;
 	void reverse_print()const;
 
-	void push_front(int Data);
-	void push_back(int Data);
+	void push_front(T Data);
+	void push_back(T Data);
 
 	void pop_front();
 	void pop_back();
 
-	void insert(int Data, int pos);
+	void insert(T Data, int pos);
 	void erase(int pos);
 
 
 
 	List& operator=(const List& other);
 	List& operator=(List&& other) noexcept;
+
+	
 };
+
+template<typename T>List<T> operator+(const List<T>& left, const List<T>& right);
 
 #endif // !LIST2X
 
