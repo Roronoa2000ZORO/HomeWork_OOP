@@ -1,17 +1,22 @@
 #include"binaryTree.hpp"
 
-BinaryTree::Element::Element(int Data, Element* pLeft, Element* pRight)
+Tree::Element::Element(int Data, Element* pLeft, Element* pRight)
     :Data(Data), pLeft(pLeft), pRight(pRight) 
 {
+#ifdef DEBUG
     cout << "EConstructor " << this << endl;
+#endif // DEBUG
+
 }
 
-BinaryTree::Element::~Element() 
+Tree::Element::~Element() 
 {
+#ifdef DEBUG
     cout << "EDestructor " << this << endl;
+#endif // DEBUG
 }
 
-int BinaryTree::Count(Element* Root, size_t size)
+int Tree::Count(Element* Root, size_t size)
 {
     if (Root == nullptr)return size;
 
@@ -20,7 +25,7 @@ int BinaryTree::Count(Element* Root, size_t size)
     return size - 1;
 }
 
-int BinaryTree::Sum(Element* Root, int sum)
+int Tree::Sum(Element* Root, int sum)
 {
     if (Root == nullptr)return 0;
     sum += Sum(Root->pLeft, sum) + Sum(Root->pRight, sum);
@@ -28,23 +33,32 @@ int BinaryTree::Sum(Element* Root, int sum)
 }
 
 
-BinaryTree::Element* BinaryTree::getRoot() const
+Tree::Element* Tree::getRoot() const
 {
     return Root;
 }
 
-BinaryTree::BinaryTree()
+Tree::Tree()
     :Root(nullptr) 
 {
     cout << "BConstructor " << this << endl;
 }
 
-BinaryTree::~BinaryTree() 
+Tree::Tree(const std::initializer_list<int>& il) :Tree()
 {
+    for (int const* it = il.begin(); it != il.end(); ++it)
+    {
+        insert(*it, Root);
+    }
+}
+
+Tree::~Tree() 
+{
+
     cout << "BDestructor " << this << endl;
 }
 
-void BinaryTree::insert(int Data, Element* Root)
+void Tree::insert(int Data, Element* Root)
 {
     if (this->Root == nullptr)this->Root = new Element(Data);
     if (Root == nullptr)return;
@@ -60,7 +74,7 @@ void BinaryTree::insert(int Data, Element* Root)
     }
 }
 
-void BinaryTree::print(Element* Root) const
+void Tree::print(Element* Root) const
 {
     if (Root == nullptr)return;
     print(Root->pLeft);
@@ -68,7 +82,7 @@ void BinaryTree::print(Element* Root) const
     print(Root->pRight);
 }
 
-int BinaryTree::minValue(Element* Root) const
+int Tree::minValue(Element* Root) const
 {
     /*if (Root == nullptr)return 0;
     if (Root->pLeft == nullptr)return Root->Data;
@@ -76,7 +90,7 @@ int BinaryTree::minValue(Element* Root) const
     return Root == nullptr ? 0 : Root->pLeft == nullptr ? Root->Data : minValue(Root->pLeft);
 }
 
-int BinaryTree::maxValue(Element* Root) const
+int Tree::maxValue(Element* Root) const
 {
     /*if (Root == nullptr)return 0;
     if (Root->pRight == nullptr)return Root->Data;
@@ -85,13 +99,51 @@ int BinaryTree::maxValue(Element* Root) const
 }
 
 
-int BinaryTree::Count(Element* Root)
+int Tree::Count(Element* Root)
 {
-    return Count(Root, 0);
+    return Root == nullptr ? 0 : Count(Root, 0);
 }
 
-int BinaryTree::Sum(Element* Root)
+int Tree::Sum(Element* Root)
 {
     return Root == nullptr ? 0 : Sum(Root, 0);
 }
 
+double Tree::Avg(Element* Root)
+{
+    return (double)Sum(Root) / Count(Root);
+}
+
+int Tree::Depth(Element* Root)
+{
+    if (Root == nullptr)return 0;
+
+    /*if (Depth(Root->pLeft) + 1 > Depth(Root->pRight) + 1)return Depth(Root->pLeft) + 1;
+    else return Depth(Root->pRight) + 1;*/
+
+    int l_depth = Depth(Root->pLeft);
+    int r_depth = Depth(Root->pRight);
+
+    if (l_depth > r_depth)return l_depth + 1;
+    else return r_depth + 1;
+    //return l_depth > r_depth ? l_depth + 1 : r_depth + 1;        тернарный вариант
+    
+}
+
+
+
+void UniqueTree::insert(int Data, Element* Root)
+{
+    if (this->Root == nullptr)this->Root = new Element(Data);
+    if (Root == nullptr)return;
+    if (Data < Root->Data)
+    {
+        if (Root->pLeft == nullptr)Root->pLeft = new Element(Data);
+        else insert(Data, Root->pLeft);
+    }
+    else if(Data > Root->Data)
+    {
+        if (Root->pRight == nullptr)Root->pRight = new Element(Data);
+        else insert(Data, Root->pRight);
+    }
+}

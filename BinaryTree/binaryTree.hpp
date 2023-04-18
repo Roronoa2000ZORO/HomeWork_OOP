@@ -2,13 +2,17 @@
 #define BINARYTREE_HPP
 
 #include<iostream>
+#include<ctime>
 
 using namespace std;
+using std::cout;
+using std::cin;
+using std::endl;
 
 
-
-class BinaryTree
+class Tree
 {
+protected:
     class Element
     {
     private:
@@ -18,7 +22,8 @@ class BinaryTree
     public:
         Element(int Data, Element* pLeft = nullptr, Element* pRight = nullptr);
         ~Element();
-        friend class BinaryTree;
+        friend class Tree;
+        friend class UniqueTree;
     }*Root;
 
     static int Count(Element* Root, size_t size);
@@ -27,8 +32,9 @@ class BinaryTree
 public:
     Element* getRoot()const;
 
-    BinaryTree();
-    ~BinaryTree();
+    Tree();
+    Tree(const std::initializer_list<int>& il);
+    ~Tree();
 
 
 
@@ -41,6 +47,21 @@ public:
 
     static int Count(Element* Root);
     static int Sum(Element* Root);
+
+    double Avg(Element* Root);
+
+    int Depth(Element* Root);
+
+    //void Clear(Element* Root);
+
+    
+};
+
+
+class UniqueTree :public Tree
+{
+public:
+    void insert(int Data, Element* Root);
 };
 
 
