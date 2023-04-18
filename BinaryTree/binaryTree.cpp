@@ -1,5 +1,6 @@
 #include"binaryTree.hpp"
 
+#define DEBUG
 Tree::Element::Element(int Data, Element* pLeft, Element* pRight)
     :Data(Data), pLeft(pLeft), pRight(pRight) 
 {
@@ -54,9 +55,30 @@ Tree::Tree(const std::initializer_list<int>& il) :Tree()
 
 Tree::~Tree() 
 {
-
+    this->Clear(Root);
     cout << "BDestructor " << this << endl;
 }
+
+void Tree::insert(int Data)
+{
+    return insert(Data, Root);
+}
+
+void Tree::print() const
+{
+    return print(Root);
+}
+
+int Tree::minValue() const
+{
+    return minValue(Root);
+}
+
+int Tree::maxValue() const
+{
+    return maxValue(Root);
+}
+
 
 void Tree::insert(int Data, Element* Root)
 {
@@ -99,19 +121,40 @@ int Tree::maxValue(Element* Root) const
 }
 
 
-int Tree::Count(Element* Root)
+int Tree::Count()
 {
     return Root == nullptr ? 0 : Count(Root, 0);
 }
 
-int Tree::Sum(Element* Root)
+int Tree::Sum()
 {
     return Root == nullptr ? 0 : Sum(Root, 0);
 }
 
+double Tree::Avg()
+{
+    return Avg(Root);
+}
+
+int Tree::Depth()
+{
+    return Depth(Root);
+}
+
+void Tree::Clear()
+{
+    Clear(Root);
+    Root = nullptr;
+}
+
+void Tree::erase(int Data)
+{
+    erase(Data, Root);
+}
+
 double Tree::Avg(Element* Root)
 {
-    return (double)Sum(Root) / Count(Root);
+    return (double)Sum() / Count();
 }
 
 int Tree::Depth(Element* Root)
@@ -124,10 +167,46 @@ int Tree::Depth(Element* Root)
     int l_depth = Depth(Root->pLeft);
     int r_depth = Depth(Root->pRight);
 
-    if (l_depth > r_depth)return l_depth + 1;
-    else return r_depth + 1;
-    //return l_depth > r_depth ? l_depth + 1 : r_depth + 1;        тернарный вариант
+    /*if (l_depth > r_depth)return l_depth + 1;
+    else return r_depth + 1;*/
+    return l_depth > r_depth ? l_depth + 1 : r_depth + 1;//     тернарный вариант
     
+}
+
+void Tree::Clear(Element* Root)
+{
+    if (Root == nullptr)return;
+    Clear(Root->pLeft);
+    Clear(Root->pRight);
+    delete Root;
+}
+
+void Tree::erase(int Data, Element*& Root)
+{
+    if (Root == nullptr)return;
+    erase(Data, Root->pLeft);
+    erase(Data, Root->pRight);
+    if (Data == Root->Data)
+    {
+        if (Root->pLeft == Root->pRight)
+        {
+            delete Root;
+            Root = nullptr;
+        }
+        else
+        {
+            if (Count(Root->pLeft, 0) > Count(Root->pRight, 0))
+            {
+                Root->Data = maxValue(Root->pLeft);
+                erase(maxValue(Root->pLeft), Root->pLeft);
+            }
+            else
+            {
+                Root->Data = maxValue(Root->pRight);
+                erase(maxValue(Root->pRight), Root->pRight);
+            }
+        }
+    }
 }
 
 
@@ -146,4 +225,9 @@ void UniqueTree::insert(int Data, Element* Root)
         if (Root->pRight == nullptr)Root->pRight = new Element(Data);
         else insert(Data, Root->pRight);
     }
+}
+
+void UniqueTree::insert(int Data)
+{
+    insert(Data, Root);
 }

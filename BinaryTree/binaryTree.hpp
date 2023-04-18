@@ -26,8 +26,7 @@ protected:
         friend class UniqueTree;
     }*Root;
 
-    static int Count(Element* Root, size_t size);
-    static int Sum(Element* Root, int sum);
+    
 
 public:
     Element* getRoot()const;
@@ -37,6 +36,25 @@ public:
     ~Tree();
 
 
+    void insert(int Data);
+
+    void print()const;
+
+    int minValue()const;
+    int maxValue()const;
+
+    int Count();
+    int Sum();
+
+    double Avg();
+
+    int Depth();
+
+    void Clear();
+    void erase(int Data);
+private:
+    int Count(Element* Root, size_t size);
+    int Sum(Element* Root, int sum);
 
     void insert(int Data, Element* Root);
 
@@ -45,14 +63,13 @@ public:
     int minValue(Element* Root)const;
     int maxValue(Element* Root)const;
 
-    static int Count(Element* Root);
-    static int Sum(Element* Root);
-
     double Avg(Element* Root);
 
     int Depth(Element* Root);
 
-    //void Clear(Element* Root);
+    void Clear(Element* Root);
+
+    void erase(int Data, Element*& Root);
 
     
 };
@@ -60,8 +77,9 @@ public:
 
 class UniqueTree :public Tree
 {
-public:
     void insert(int Data, Element* Root);
+public:
+    void insert(int Data);
 };
 
 
