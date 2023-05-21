@@ -3,6 +3,7 @@
 
 #include<iostream>
 #include<ctime>
+#include <iomanip>
 
 using namespace std;
 using std::cout;
@@ -20,7 +21,8 @@ protected:
         Element* pLeft;
         Element* pRight;
     public:
-        Element(int Data, Element* pLeft = nullptr, Element* pRight = nullptr);
+        
+        Element(int Data = NULL, Element* pLeft = nullptr, Element* pRight = nullptr);
         ~Element();
         friend class Tree;
         friend class UniqueTree;
@@ -30,6 +32,7 @@ protected:
 
 public:
     Element* getRoot()const;
+
 
     Tree();
     Tree(const std::initializer_list<int>& il);
@@ -43,8 +46,8 @@ public:
     int minValue()const;
     int maxValue()const;
 
-    int Count();
-    int Sum();
+    int Count()const;
+    int Sum()const;
 
     double Avg();
 
@@ -52,9 +55,13 @@ public:
 
     void Clear();
     void erase(int Data);
+    void balance();
+    void print_tree()const;
 private:
-    int Count(Element* Root, size_t size);
-    int Sum(Element* Root, int sum);
+    void get_Data(Element* Root, Element& elements, size_t i)const;
+
+    int Count(Element* Root, int size)const;
+    int Sum(Element* Root, int sum)const;
 
     void insert(int Data, Element* Root);
 
@@ -71,6 +78,8 @@ private:
 
     void erase(int Data, Element*& Root);
 
+    void balance(Element* Root, const int SIZE);
+    void printTree(Element* Root);
     
 };
 

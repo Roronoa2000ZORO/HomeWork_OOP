@@ -1,6 +1,7 @@
 #include"binaryTree.hpp"
 
 #define DEBUG
+
 Tree::Element::Element(int Data, Element* pLeft, Element* pRight)
     :Data(Data), pLeft(pLeft), pRight(pRight) 
 {
@@ -17,7 +18,7 @@ Tree::Element::~Element()
 #endif // DEBUG
 }
 
-int Tree::Count(Element* Root, size_t size)
+int Tree::Count(Element* Root, int size)const
 {
     if (Root == nullptr)return size;
 
@@ -26,7 +27,7 @@ int Tree::Count(Element* Root, size_t size)
     return size - 1;
 }
 
-int Tree::Sum(Element* Root, int sum)
+int Tree::Sum(Element* Root, int sum)const
 {
     if (Root == nullptr)return 0;
     sum += Sum(Root->pLeft, sum) + Sum(Root->pRight, sum);
@@ -121,12 +122,12 @@ int Tree::maxValue(Element* Root) const
 }
 
 
-int Tree::Count()
+int Tree::Count() const
 {
     return Root == nullptr ? 0 : Count(Root, 0);
 }
 
-int Tree::Sum()
+int Tree::Sum()const
 {
     return Root == nullptr ? 0 : Sum(Root, 0);
 }
@@ -150,6 +151,25 @@ void Tree::Clear()
 void Tree::erase(int Data)
 {
     erase(Data, Root);
+}
+
+void Tree::balance()
+{ 
+    balance(Root, Count());
+}
+
+void Tree::print_tree()const
+{
+    printTree(Root);
+}
+
+void Tree::get_Data(Element* Root, Element& elements, size_t i) const
+{
+    if (Root == nullptr)return;
+    elements;
+    get_Data(Root->pLeft, elements, i + 1);
+    get_Data(Root->pRight, elements, i);
+
 }
 
 double Tree::Avg(Element* Root)
@@ -209,6 +229,14 @@ void Tree::erase(int Data, Element*& Root)
     }
 }
 
+void Tree::balance(Element* Root, const int SIZE)
+{
+    Element* elements = new Element[SIZE];
+
+    //get_Data(Root, elements);
+    delete[] elements;
+}
+
 
 
 void UniqueTree::insert(int Data, Element* Root)
@@ -230,4 +258,13 @@ void UniqueTree::insert(int Data, Element* Root)
 void UniqueTree::insert(int Data)
 {
     insert(Data, Root);
+}
+
+void Tree::printTree(Element* Root)
+{
+    if (Root == nullptr)return;
+    print(Root->pLeft);
+    cout << Root->Data << "\t";
+    print(Root->pRight);
+
 }

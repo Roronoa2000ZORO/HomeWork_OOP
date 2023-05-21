@@ -65,13 +65,11 @@ int main()
     Tree tree = { 50, 25, 75, 16, 32, 64, 90, 28 };
     tree.print();
     cout << "Глубина Бинарного дерева: " << tree.Depth() << endl;
-    int value;
-    cin >> value;
-    tree.erase(value);
-    tree.print();
+    
 #endif // DEEP_CHEK
 
-
+    //tree.balance();
+    tree.print_tree(tree.getRoot(), 0);
 
     return 0;
 }
