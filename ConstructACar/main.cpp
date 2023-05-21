@@ -48,7 +48,7 @@ public:
 class Engine
 {
 	int consumption;	//расход топлива на 100 км
-	double consumption_per_second;	//расзод топлива за 1 секунду на холостом ходу
+	double consumption_per_second;	//расход топлива за 1 секунду на холостом ходу
 	bool is_started;
 public:
 	Engine(int consumption) :consumption(
@@ -164,7 +164,31 @@ public:
 				tank.fill(fuel);
 				break;
 			case 'I':case 'i':	//Ignition
+				if (!driver_inside)
+				{
+					cout << "Для начала сядьте в машину" << endl;
+					break;
+				}
+				if (!engine.started())
+				{
+					engine.start();
+					cout << "Вы успешно завели двигатель" << endl;
+				}
+				else cout << "Машина уже заведена!" << endl;
+				break;
 
+			case 'T':case 't':	//Turn off
+				if (!driver_inside)
+				{
+					cout << "Для начала сядьте в машину" << endl;
+					break;
+				}
+				if (engine.started())
+				{
+					engine.stop();
+					cout << "Вы успешно заглушили двигатель" << endl;
+				}
+				else cout << "Машина не заведена!" << endl;
 				break;
 
 			case Escape:
